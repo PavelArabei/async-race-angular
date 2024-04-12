@@ -1,1 +1,1 @@
-# async-race-angular
+# AsyncRaceAngular
