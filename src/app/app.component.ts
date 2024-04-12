@@ -11,7 +11,5 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'async-race-angular';
 
-  wrongMethodTotryHusky() {
-    this.nothing;
-  }
+  wrongMethodTotryHusky() {}
 }
