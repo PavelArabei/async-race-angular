@@ -6,7 +6,6 @@ import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { CarWithoutId } from '@app/shared/types/car';
 import { ButtonComponent } from '@core/components/button/button.component';
 
 type CarForm = {
@@ -25,7 +24,6 @@ type UpgradeType = 'upgrade' | 'create';
 export class UpgradeCarComponent {
   @Input() upgradeType: UpgradeType = 'create';
   private fb = inject(NonNullableFormBuilder);
-
   form: FormGroup<CarForm> = this.fb.group({
     name: this.fb.control(''),
     color: this.fb.control(''),
@@ -40,12 +38,10 @@ export class UpgradeCarComponent {
   }
 
   submit() {
-    const car: CarWithoutId = this.form.getRawValue();
     if (this.upgradeType === 'create') {
       // TODO: create car
     } else {
       // TODO: upgrade car
     }
-    console.log(car);
   }
 }
