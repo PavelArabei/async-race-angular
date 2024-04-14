@@ -1,11 +1,14 @@
 <button class="button">
-  <ng-content></ng-content>
-  @if (svgName) {
-    <mat-icon
-      class="button__icon"
-      aria-hidden="false"
-      aria-label="Example thumbs up SVG icon"
-      [svgIcon]="svgName"
-    ></mat-icon>
-  }
+  <div class="button__content">
+    <ng-content></ng-content>
+    @if (svgName) {
+      <mat-icon
+        class="button__icon"
+        aria-hidden="false"
+        aria-label="Example thumbs up SVG icon"
+        [svgIcon]="svgName"
+        [ngStyle]="{ color: svgColor }"
+      ></mat-icon>
+    }
+  </div>
 </button>

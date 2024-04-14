@@ -1,6 +1,23 @@
 .button {
   display: flex;
-  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  border: 2px solid;
+  border-radius: 5px;
+  padding: 0 1rem;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+  }
+
+  &__content {
+    display: flex;
+    gap: 0.5rem;
+  }
 
   &__icon {
     font-size: inherit;
