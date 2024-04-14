@@ -1,0 +1,11 @@
+<button class="button">
+  <ng-content></ng-content>
+  @if (svgName) {
+    <mat-icon
+      class="button__icon"
+      aria-hidden="false"
+      aria-label="Example thumbs up SVG icon"
+      [svgIcon]="svgName"
+    ></mat-icon>
+  }
+</button>

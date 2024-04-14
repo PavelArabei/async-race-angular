@@ -1,0 +1,23 @@
+@import 'colors';
+
+.header {
+  display: flex;
+  &__title {
+    font-family: 'Neonderthaw', cursive;
+    font-size: calc(96px + 48 * (100vw / 1920));
+    line-height: 1;
+    font-weight: 400;
+    text-align: center;
+    margin: 0;
+    color: $accent;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header__title {
+    font-size: calc(48px + 48 * (100vw / 1920));
+  }
+}
+.big-button {
+  font-size: 84px;
+}

@@ -1,0 +1,8 @@
+.button {
+  display: flex;
+  gap: 0.5rem;
+
+  &__icon {
+    font-size: inherit;
+  }
+}

@@ -1,0 +1,13 @@
+:host {
+  min-height: 100dvh;
+  max-width: 80%;
+  width: 100%;
+
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.main {
+  flex-grow: 1;
+}
