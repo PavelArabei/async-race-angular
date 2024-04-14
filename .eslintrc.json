@@ -30,10 +30,12 @@
         "import/first": "error",
         "import/newline-after-import": "error",
         "import/no-duplicates": "error",
-        "max-len": ["error", 120],
+        "max-len": [
+          "error",
+          120
+        ],
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
-        // eslint-plugin-unused-imports rules
         "unused-imports/no-unused-imports": "error",
         "unused-imports/no-unused-vars": [
           "warn",
@@ -44,14 +46,20 @@
             "argsIgnorePattern": "^_"
           }
         ],
-        // TypeScript Eslint rules
-//        "@typescript-eslint/indent": ["error", 4],
         "@typescript-eslint/comma-dangle": "off",
         "@typescript-eslint/lines-between-class-members": "off",
-        "@typescript-eslint/quotes": ["error", "single"],
+        "@typescript-eslint/quotes": [
+          "error",
+          "single"
+        ],
         "@typescript-eslint/no-shadow": "error",
         "@typescript-eslint/no-explicit-any": 0,
-        "max-lines-per-function": ["error", {"max": 40}],
+        "max-lines-per-function": [
+          "error",
+          {
+            "max": 40
+          }
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -79,6 +87,14 @@
         "plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended"
+      ]
     }
   ]
 }
