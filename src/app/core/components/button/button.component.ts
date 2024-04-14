@@ -1,11 +1,10 @@
-import { NgStyle } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [MatIcon, NgStyle],
+  imports: [MatIcon],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })

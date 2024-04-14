@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
-import { FooterComponent } from './core/components/footer/footer.component';
-import { HeaderComponent } from './core/components/header/header.component';
+import { FooterComponent } from '@core/components/footer/footer.component';
+import { HeaderComponent } from '@core/components/header/header.component';
+import { IconRegisterService } from '@core/services/icon-register.service';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +11,10 @@ import { HeaderComponent } from './core/components/header/header.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  private readonly iconRegisterService = inject(IconRegisterService);
+
+  public ngOnInit(): void {
+    this.iconRegisterService.registerIcons();
+  }
+}

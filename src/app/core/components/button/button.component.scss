@@ -1,3 +1,4 @@
+@import 'mixins';
 .button {
   display: flex;
   justify-content: center;
@@ -17,9 +18,10 @@
   &__content {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
   }
 
   &__icon {
-    font-size: inherit;
+    @include icon-size(30px);
   }
 }
