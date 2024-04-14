@@ -26,6 +26,8 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@core/*": ["./src/app/core/*"],
+      "@garage/*": ["./src/app/garage/*"],
+      "@winners/*": ["./src/app/winners/*"],
       "@utils/*": ["./src/app/utils/*"],
       "@icons/*": ["./src/assets/icons/*"],
     }
