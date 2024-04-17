@@ -1,3 +1,4 @@
+import { NgStyle } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -7,7 +8,7 @@ import { ButtonComponent } from '@core/components/button/button.component';
 @Component({
   selector: 'app-race',
   standalone: true,
-  imports: [MatIcon, ButtonComponent, MatDivider],
+  imports: [MatIcon, ButtonComponent, MatDivider, NgStyle],
   templateUrl: './race.component.html',
   styleUrl: './race.component.scss',
 })
