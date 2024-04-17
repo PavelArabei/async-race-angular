@@ -6,7 +6,10 @@ import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { CarWithoutId } from '@app/shared/types/car';
 import { ButtonComponent } from '@core/components/button/button.component';
+import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
+import { Store } from '@ngrx/store';
 
 type CarForm = {
   name: FormControl<string>;
@@ -23,12 +26,13 @@ type UpgradeType = 'upgrade' | 'create';
 })
 export class UpgradeCarComponent {
   @Input() upgradeType: UpgradeType = 'create';
+
+  private readonly store = inject(Store);
   private fb = inject(NonNullableFormBuilder);
   form: FormGroup<CarForm> = this.fb.group({
     name: this.fb.control(''),
     color: this.fb.control(''),
   });
-
   get nameControl() {
     return this.form.controls.name;
   }
@@ -39,7 +43,8 @@ export class UpgradeCarComponent {
 
   submit() {
     if (this.upgradeType === 'create') {
-      // TODO: create car
+      const car: CarWithoutId = this.form.getRawValue();
+      this.store.dispatch(GarageHttpActions.addCar({ data: car }));
     } else {
       // TODO: upgrade car
     }

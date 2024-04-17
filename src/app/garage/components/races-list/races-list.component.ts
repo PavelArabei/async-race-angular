@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { Car } from '@app/shared/types/car';
 import { RaceComponent } from '@garage/components/race/race.component';
-import { GarageActions } from '@garage/redux/actions/garage.actions';
+import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
 import { garageFeature } from '@garage/redux/state/garage.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -20,6 +20,6 @@ export class RacesListComponent implements OnInit {
   cars$: Observable<Car[]> = this.store.select(garageFeature.selectCars);
 
   ngOnInit(): void {
-    this.store.dispatch(GarageActions.loadCars());
+    this.store.dispatch(GarageHttpActions.loadCars());
   }
 }

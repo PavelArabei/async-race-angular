@@ -1,5 +1,5 @@
 import { Car } from '@app/shared/types/car';
-import { GarageActions } from '@garage/redux/actions/garage.actions';
+import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
 import { createFeature, createReducer, on } from '@ngrx/store';
 
 export interface State {
@@ -16,17 +16,18 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(GarageActions.loadCars, (state): State => ({ ...state, isLoading: true })),
+  on(GarageHttpActions.loadCars, (state): State => ({ ...state, isLoading: true })),
   on(
-    GarageActions.loadCarsSuccess,
+    GarageHttpActions.loadCarsSuccess,
     (state, { data }): State => ({
       ...state,
       isLoading: false,
       cars: data,
     })
   ),
+
   on(
-    GarageActions.loadCarsFailure,
+    GarageHttpActions.loadFailure,
     (state, { error }): State => ({
       ...state,
       isLoading: false,
