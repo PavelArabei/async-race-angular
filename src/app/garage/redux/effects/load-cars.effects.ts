@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
-import { GarageHttpService } from '@garage/services/garage-http.service';
+import { GarageHttpService } from '@garage/services/garage-http/garage-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of } from 'rxjs';
 

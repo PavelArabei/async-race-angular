@@ -1,7 +1,7 @@
 <div class="start">
   <div class="controls">
     <div class="controls__car">
-      <app-button>SELECT</app-button>
+      <app-button (click)="selectCar()">SELECT</app-button>
       <app-button (click)="removeCar()">REMOVE</app-button>
     </div>
     <div class="controls__race">
@@ -9,20 +9,25 @@
       <app-button>STOP</app-button>
     </div>
   </div>
-  <div class="car-place"></div>
-  <div class="divider">
-    <div class="divider__line"></div>
-    <span class="divider__text">START</span>
-    <div class="divider__line"></div>
+  <div class="car-place">
+    <mat-icon [ngStyle]="{ color: car.color }" [svgIcon]="'car'" class="car"></mat-icon>
   </div>
-  <mat-icon [ngStyle]="{ color: car.color }" [svgIcon]="'car'" class="car"></mat-icon>
 </div>
-<div class="road"></div>
-<div class="end">
+<div class="road">
+  <div class="road__start">
+    <div class="divider">
+      <div class="divider__line"></div>
+      <span class="divider__text">START</span>
+      <div class="divider__line"></div>
+    </div>
+    <h2>{{ car.name | titlecase }}</h2>
+  </div>
   <div class="divider">
     <div class="divider__line"></div>
     <span class="divider__text">END</span>
     <div class="divider__line"></div>
   </div>
+</div>
+<div class="end">
   <div class="car-place"></div>
 </div>

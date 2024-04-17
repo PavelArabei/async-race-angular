@@ -17,7 +17,10 @@ $car-size: 60px;
 }
 
 .car-place {
+  position: relative;
   width: $car-size;
+  height: 100%;
+  margin: 0 0.5rem;
 }
 
 .divider {
@@ -25,7 +28,7 @@ $car-size: 60px;
   align-items: center;
   &__line {
     background-color: $accent;
-    width: 3px;
+    width: 0.1rem;
     height: $car-size;
   }
   &__text {
@@ -47,13 +50,20 @@ $car-size: 60px;
 .car {
   position: absolute;
   @include icon-size($car-size);
-  right: $car-size - 20px;
+  top: 0.25rem;
 }
 
 .road {
+  display: flex;
   flex-grow: 1;
+  justify-content: space-between;
+  width: 100%;
+
+  &__start {
+    display: flex;
+    gap: 0.25rem;
+  }
 }
 
 .end {
-  display: flex;
 }
