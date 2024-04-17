@@ -1,5 +1,11 @@
-@if (cars$ | async; as cars) {
-  @for (car of cars; track car.id) {
-    <p>{{ car.name }}</p>
+<ul class="races">
+  @if (cars$ | async; as cars) {
+    @for (car of cars; track car.id) {
+      <li class="races__race">
+        <mat-divider></mat-divider>
+        <app-race [car]="car"></app-race>
+        <mat-divider></mat-divider>
+      </li>
+    }
   }
-}
+</ul>

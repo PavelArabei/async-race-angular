@@ -4,8 +4,8 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 export const GarageActions = createActionGroup({
   source: 'Garage',
   events: {
-    'Load Garages': emptyProps(),
-    'Load Garages Success': props<{ data: Car[] }>(),
-    'Load Garages Failure': props<{ error: string }>(),
+    'Load Cars': emptyProps(),
+    'Load Cars Success': props<{ data: Car[] }>(),
+    'Load Cars Failure': props<{ error: string }>(),
   },
 });

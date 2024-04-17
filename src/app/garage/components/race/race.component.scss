@@ -1,0 +1,59 @@
+@import 'mixins';
+@import 'colors';
+:host {
+  display: flex;
+}
+
+$car-size: 60px;
+
+.start {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  align-items: center;
+
+  &__line {
+  }
+}
+
+.car-place {
+  width: $car-size;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  &__line {
+    background-color: $accent;
+    width: 3px;
+    height: $car-size;
+  }
+  &__text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  &__car,
+  &__race {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+.car {
+  position: absolute;
+  @include icon-size($car-size);
+  right: $car-size - 20px;
+}
+
+.road {
+  flex-grow: 1;
+}
+
+.end {
+  display: flex;
+}

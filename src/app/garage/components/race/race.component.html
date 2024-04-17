@@ -1,1 +1,28 @@
-<p>race works!</p>
+<div class="start">
+  <div class="controls">
+    <div class="controls__car">
+      <app-button>SELECT</app-button>
+      <app-button>REMOVE</app-button>
+    </div>
+    <div class="controls__race">
+      <app-button>START</app-button>
+      <app-button>STOP</app-button>
+    </div>
+  </div>
+  <div class="car-place"></div>
+  <div class="divider">
+    <div class="divider__line"></div>
+    <span class="divider__text">START</span>
+    <div class="divider__line"></div>
+  </div>
+  <mat-icon [svgIcon]="'car'" class="car"></mat-icon>
+</div>
+<div class="road"></div>
+<div class="end">
+  <div class="divider">
+    <div class="divider__line"></div>
+    <span class="divider__text">END</span>
+    <div class="divider__line"></div>
+  </div>
+  <div class="car-place"></div>
+</div>

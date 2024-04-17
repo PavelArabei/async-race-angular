@@ -8,12 +8,12 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 export class LoadCarsEffects {
   loadCars$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(GarageActions.loadGarages),
+      ofType(GarageActions.loadCars),
       exhaustMap(() =>
         this.garageHttpService.getCars().pipe(
-          map((cars) => GarageActions.loadGaragesSuccess({ data: cars })),
+          map((cars) => GarageActions.loadCarsSuccess({ data: cars })),
           catchError((error: { message: string }) =>
-            of(GarageActions.loadGaragesFailure({ error: error.message }))
+            of(GarageActions.loadCarsFailure({ error: error.message }))
           )
         )
       )
