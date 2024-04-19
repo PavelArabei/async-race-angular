@@ -11,7 +11,11 @@ export class LoadCarsEffects {
       ofType(GarageHttpActions.loadCars),
       exhaustMap(() =>
         this.garageHttpService.getCars().pipe(
-          map((cars) => GarageHttpActions.loadCarsSuccess({ data: cars })),
+          map((cars) => {
+            const newCars = cars.body || [];
+            const totalCars = Number(cars.headers.get('X-Total-Count') || newCars.length);
+            return GarageHttpActions.loadCarsSuccess({ data: { cars: newCars, totalCars } });
+          }),
           catchError((error: { message: string }) =>
             of(GarageHttpActions.loadFailure({ error: error.message }))
           )

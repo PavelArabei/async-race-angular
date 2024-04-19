@@ -1,19 +1,36 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Car, CarWithoutId } from '@app/shared/types/car';
+import { garageFeature } from '@garage/redux/state/garage.state';
+import { Store } from '@ngrx/store';
 import { carsFirsName, carsSecondName } from '@utils/constants/car-names';
 import { RouterRoutes } from '@utils/constants/router-routes';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GarageHttpService {
   private readonly CURRENT_PATH = RouterRoutes.GARAGE;
-  private readonly http = inject(HttpClient);
+  private LIMIT_PER_PAGE = 7;
+
+  constructor(
+    private http: HttpClient,
+    private store: Store
+  ) {}
+  getCurrentPage(): Observable<number> {
+    return this.store.select(garageFeature.selectCurrentPage);
+  }
 
   getCars() {
-    return this.http.get<Car[]>(`/${this.CURRENT_PATH}`);
+    return this.getCurrentPage().pipe(
+      switchMap((page) => {
+        return this.http.get<Car[]>(`/${this.CURRENT_PATH}`, {
+          params: { _page: page, _limit: this.LIMIT_PER_PAGE },
+          observe: 'response',
+        });
+      })
+    );
   }
 
   updateCar(car: Car) {

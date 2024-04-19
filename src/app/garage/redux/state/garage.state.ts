@@ -3,12 +3,16 @@ import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
 import { createFeature, createReducer, on } from '@ngrx/store';
 
 export interface State {
+  currentPage: number;
+  totalCount: number;
   isLoading: boolean;
   cars: Car[];
   error: string | null;
 }
 
 export const initialState: State = {
+  totalCount: 0,
+  currentPage: 1,
   isLoading: false,
   cars: [],
   error: null,
@@ -22,7 +26,8 @@ export const reducer = createReducer(
     (state, { data }): State => ({
       ...state,
       isLoading: false,
-      cars: data,
+      cars: data.cars,
+      totalCount: data.totalCars,
     })
   ),
 

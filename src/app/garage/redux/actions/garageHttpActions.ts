@@ -5,7 +5,7 @@ export const GarageHttpActions = createActionGroup({
   source: 'Garage',
   events: {
     'Load Cars': emptyProps(),
-    'Load Cars Success': props<{ data: Car[] }>(),
+    'Load Cars Success': props<{ data: { cars: Car[]; totalCars: number } }>(),
     'Load Failure': props<{ error: string }>(),
     'Add Car': props<{ data: CarWithoutId }>(),
     'Add Car Success': emptyProps(),
