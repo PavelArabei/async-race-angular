@@ -1,36 +1,69 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
+import { DestroyRef, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RaceHttpService } from '@garage/services/race-http/race-http.service';
-import { catchError, of, Subject } from 'rxjs';
+import { ResizeEmitterService } from '@garage/services/resize-emitter/resize-emitter.service';
+import { AnimationState, carAnimation } from '@utils/functions/animate-car';
+import { BehaviorSubject, catchError, of } from 'rxjs';
 
 export type RaceParams = { velocity: number; distance: number };
 
 @Injectable()
 export class RaceStateService {
-  private raceParams: Subject<RaceParams> = new Subject();
-  raceParams$ = this.raceParams.asObservable();
-  private raceResult: Subject<boolean> = new Subject();
-  raceResult$ = this.raceResult.asObservable();
+  private isRaceStarted = new BehaviorSubject(false);
+  private car!: HTMLElement;
+  private carId!: number;
+  private destroyRef!: DestroyRef;
+  private distance = 0;
+  private animationState: AnimationState = { id: 0 };
 
-  constructor(private raceHttpService: RaceHttpService) {}
+  constructor(
+    private raceHttpService: RaceHttpService,
+    private resizeEmitter: ResizeEmitterService
+  ) {}
 
-  startRace(id: number) {
-    const raceSubscription = this.raceHttpService.startEngine(id).subscribe((raceParams) => {
-      this.raceParams.next(raceParams);
-      this.drive(id);
-      raceSubscription.unsubscribe();
-    });
+  getRaceStatus() {
+    return this.isRaceStarted.asObservable();
   }
 
-  stopRace(id: number, carImage: MatIcon) {
-    const car = carImage._elementRef.nativeElement;
+  //
+  addCarAndId(car: HTMLElement, id: number) {
+    this.car = car;
+    this.carId = id;
+  }
+
+  addDestroyRef(destroyRef: DestroyRef) {
+    this.destroyRef = destroyRef;
+  }
+
+  addDistance() {
+    this.resizeEmitter.carDistance
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((distance) => {
+        this.distance = distance;
+      });
+  }
+
+  startRace(id: number) {
+    const raceSubscription = this.raceHttpService
+      .startEngine(id)
+      .subscribe(({ distance, velocity }) => {
+        const time = distance / velocity;
+        this.animationState = carAnimation(this.car, this.distance, time);
+        this.isRaceStarted.next(true);
+        this.drive(id);
+        raceSubscription.unsubscribe();
+      });
+  }
+
+  stopRace(id: number) {
     this.raceHttpService
       .stopEngine(id)
       .pipe(catchError((error: HttpErrorResponse) => of(error)))
       .subscribe(() => {
-        this.raceResult.next(false);
-        car.style.transform = 'translateX(0px)';
+        this.isRaceStarted.next(false);
+        this.animationState.id = 0;
+        this.car.style.transform = 'translateX(0px)';
       });
   }
 
@@ -40,9 +73,7 @@ export class RaceStateService {
       .pipe(catchError((error: HttpErrorResponse) => of(error)))
       .subscribe((raceParams) => {
         if (raceParams instanceof HttpErrorResponse) {
-          this.raceResult.next(false);
-        } else {
-          this.raceResult.next(true);
+          this.animationState.id = 0;
         }
       });
   }
