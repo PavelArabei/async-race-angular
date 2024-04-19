@@ -38,26 +38,31 @@ export class RaceComponent implements OnInit {
     private readonly destroyRef: DestroyRef
   ) {}
 
-  removeCar() {
-    this.store.dispatch(GarageHttpActions.deleteCar({ id: this.car.id }));
-  }
-
-  selectCar() {
-    this.updateCarService.selectCar(this.car);
-  }
-
   ngOnInit(): void {
     this.getDistance();
   }
 
-  stopRace() {
-    this.isRaceStarted = false;
+  getCarColor() {
+    return this.car.color;
   }
 
   startRace() {
     this.isRaceStarted = true;
     const car = this.carImage._elementRef.nativeElement;
     car.style.transform = `translateX(${this.distance}px)`;
+  }
+  stopRace() {
+    this.isRaceStarted = false;
+    const car = this.carImage._elementRef.nativeElement;
+    car.style.transform = 'translateX(0px)';
+  }
+
+  removeCar() {
+    this.store.dispatch(GarageHttpActions.deleteCar({ id: this.car.id }));
+  }
+
+  selectCar() {
+    this.updateCarService.selectCar(this.car);
   }
 
   private getDistance() {
