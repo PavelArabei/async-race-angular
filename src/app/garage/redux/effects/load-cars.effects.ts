@@ -62,12 +62,27 @@ export class LoadCarsEffects {
     );
   });
 
+  addHundredCars$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(GarageHttpActions.add100Cars), // Тип действия, который активирует эффект
+      exhaustMap(() =>
+        this.garageHttpService.addHundredCars().pipe(
+          map(() => GarageHttpActions.add100CarsSuccess()),
+          catchError((error: { message: string }) =>
+            of(GarageHttpActions.loadFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  });
+
   handleAddCar$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
         GarageHttpActions.addCarSuccess,
         GarageHttpActions.updateCarSuccess,
-        GarageHttpActions.deleteCarSuccess
+        GarageHttpActions.deleteCarSuccess,
+        GarageHttpActions.add100CarsSuccess
       ),
       exhaustMap(() => of(GarageHttpActions.loadCars()))
     );
