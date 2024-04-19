@@ -1,12 +1,50 @@
-.races {
+@import 'colors';
+$item-height: 80px;
+
+.race-container {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.race {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 1rem;
-  &__race {
-    width: 100%;
+  margin: 0;
+
+  &__item {
+    height: $item-height;
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  &__name {
+    margin-left: 1rem;
+  }
+}
+.race-road {
+  display: flex;
+  flex-grow: 1;
+}
+
+.finish {
+  width: $item-height;
+}
+.flex-grow {
+  flex-grow: 1;
+}
+.divider {
+  display: flex;
+  align-items: center;
+  &__line {
+    background-color: $accent;
+    width: 3px;
+    height: 100%;
+  }
+  &__text {
+    writing-mode: vertical-rl;
+    //transform: rotate(180deg);
   }
 }

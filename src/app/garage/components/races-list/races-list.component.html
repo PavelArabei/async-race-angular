@@ -1,11 +1,43 @@
-<ul class="races">
+<div class="race-container">
   @if (cars$ | async; as cars) {
-    @for (car of cars; track car.id) {
-      <li class="races__race">
-        <mat-divider></mat-divider>
-        <app-race [car]="car"></app-race>
-        <mat-divider></mat-divider>
-      </li>
-    }
+    <ul class="race">
+      @for (car of cars; track car.id) {
+        <li class="race__item">
+          <mat-divider></mat-divider>
+          <app-race class="flex-grow" [car]="car"></app-race>
+          <mat-divider></mat-divider>
+        </li>
+      }
+    </ul>
+    <div class="race-road">
+      <div class="divider">
+        <div class="divider__line"></div>
+        <span class="divider__text">START</span>
+        <div class="divider__line"></div>
+      </div>
+      <ul class="race flex-grow">
+        @for (car of cars; track car.id) {
+          <li class="race__item flex-grow">
+            <mat-divider></mat-divider>
+            <h2 class="race__name">{{ car.name }}</h2>
+            <mat-divider></mat-divider>
+          </li>
+        }
+      </ul>
+      <div class="divider">
+        <div class="divider__line"></div>
+        <span class="divider__text">END</span>
+        <div class="divider__line"></div>
+      </div>
+      <ul class="race">
+        @for (car of cars; track car.id) {
+          <li class="race__item">
+            <mat-divider></mat-divider>
+            <div class="flex-grow finish"></div>
+            <mat-divider></mat-divider>
+          </li>
+        }
+      </ul>
+    </div>
   }
-</ul>
+</div>

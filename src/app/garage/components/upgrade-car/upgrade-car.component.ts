@@ -58,7 +58,7 @@ export class UpgradeCarComponent implements OnInit {
     if (this.upgradeType === 'create') {
       this.store.dispatch(GarageHttpActions.addCar({ data: carWithoutId }));
     } else {
-      const car = { ...carWithoutId, id: this.car!.id };
+      const car: Car = { ...carWithoutId, id: this.car!.id };
       this.updateCarService.unselectCar();
       this.store.dispatch(GarageHttpActions.updateCar({ data: car }));
     }
