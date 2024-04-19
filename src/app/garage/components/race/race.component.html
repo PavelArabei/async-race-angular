@@ -6,7 +6,7 @@
     </div>
     <div class="controls__race">
       <app-button (click)="startRace()" [disabled]="isRaceStarted">START</app-button>
-      <app-button (click)="stopRace()" [disabled]="!isRaceStarted">STOP</app-button>
+      <app-button (click)="addCarToGarage()" [disabled]="!isRaceStarted">STOP</app-button>
     </div>
   </div>
   <div class="car-place">
