@@ -1,5 +1,12 @@
 import { NgStyle, TitleCasePipe } from '@angular/common';
-import { Component, DestroyRef, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -16,10 +23,12 @@ import { Store } from '@ngrx/store';
   imports: [MatIcon, ButtonComponent, MatDivider, NgStyle, TitleCasePipe],
   templateUrl: './race.component.html',
   styleUrl: './race.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RaceComponent implements OnInit {
   @Input({ required: true }) car!: Car;
-
+  isRaceStarted = false;
+  @ViewChild('car') carImage!: MatIcon;
   private distance = 0;
 
   constructor(
@@ -39,6 +48,16 @@ export class RaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDistance();
+  }
+
+  stopRace() {
+    this.isRaceStarted = false;
+  }
+
+  startRace() {
+    this.isRaceStarted = true;
+    const car = this.carImage._elementRef.nativeElement;
+    car.style.transform = `translateX(${this.distance}px)`;
   }
 
   private getDistance() {

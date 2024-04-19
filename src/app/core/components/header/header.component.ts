@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RouterRoutes } from '@utils/constants/router-routes';
 
@@ -10,6 +10,7 @@ import { ButtonComponent } from '../button/button.component';
   imports: [ButtonComponent, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   readonly winnersLink = `${RouterRoutes.WINNERS}`;

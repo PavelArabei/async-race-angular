@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Input, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormControl,
@@ -30,6 +30,7 @@ export class UpgradeCarComponent implements OnInit {
   @Input({ required: true }) upgradeType!: UpgradeType;
 
   isSelected = false;
+  isDisabled = false;
   car: Car | null = null;
   form!: FormGroup<CarForm>;
 
@@ -37,7 +38,8 @@ export class UpgradeCarComponent implements OnInit {
     private readonly store: Store,
     private readonly fb: NonNullableFormBuilder,
     private readonly updateCarService: UpdateCarService,
-    private readonly destroyRef: DestroyRef
+    private readonly destroyRef: DestroyRef,
+    private cdr: ChangeDetectorRef
   ) {}
 
   get nameControl() {
@@ -94,13 +96,16 @@ export class UpgradeCarComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((isSelected) => {
         if (isSelected) {
+          this.isDisabled = false;
           this.form.controls.name.enable();
           this.form.controls.color.enable();
         } else {
+          this.isDisabled = true;
           this.form.controls.name.disable();
           this.form.controls.color.disable();
         }
         this.isSelected = isSelected;
+        this.cdr.markForCheck();
       });
   }
 }

@@ -25,3 +25,11 @@
     @include icon-size(30px);
   }
 }
+
+.disabled {
+  opacity: 0.5;
+  &:hover {
+    cursor: not-allowed;
+    transform: scale(1);
+  }
+}

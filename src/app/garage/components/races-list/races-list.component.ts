@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import {
-  AfterViewInit,
+  AfterViewChecked,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostListener,
@@ -23,10 +24,10 @@ import { Observable } from 'rxjs';
   imports: [AsyncPipe, RaceComponent, MatDivider],
   templateUrl: './races-list.component.html',
   styleUrl: './races-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RacesListComponent implements OnInit, AfterViewInit {
+export class RacesListComponent implements OnInit, AfterViewChecked {
   @ViewChild('road') road!: ElementRef<HTMLDivElement>;
-
   private resizeEmitter = inject(ResizeEmitterService);
   private store = inject(Store);
   cars$: Observable<Car[]> = this.store.select(garageFeature.selectCars);
@@ -40,12 +41,12 @@ export class RacesListComponent implements OnInit, AfterViewInit {
     this.store.dispatch(GarageHttpActions.loadCars());
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
     this.changeRoadSize();
   }
 
   private changeRoadSize() {
-    const roadSize = this.road.nativeElement.clientWidth;
+    const roadSize = this.road.nativeElement.offsetWidth;
     this.resizeEmitter.changeRoadSize(roadSize);
   }
 }

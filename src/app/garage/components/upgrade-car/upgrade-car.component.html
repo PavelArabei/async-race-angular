@@ -1,5 +1,5 @@
 <form (ngSubmit)="submit()" [formGroup]="form" class="form">
   <input [formControl]="nameControl" type="text" />
   <input [formControl]="colorControl" type="color" />
-  <app-button type="submit"><ng-content></ng-content></app-button>
+  <app-button [disabled]="isDisabled" type="submit"><ng-content></ng-content></app-button>
 </form>

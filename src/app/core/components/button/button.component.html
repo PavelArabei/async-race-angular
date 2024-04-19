@@ -1,4 +1,4 @@
-<button class="button">
+<button [class.disabled]="disabled" [disabled]="disabled" class="button">
   <div class="button__content">
     <ng-content></ng-content>
     @if (svgName) {

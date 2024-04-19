@@ -5,13 +5,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ResizeEmitterService {
-  private readonly additionalDistance = 150;
   private readonly carDistance$: BehaviorSubject<number> = new BehaviorSubject(0);
   get carDistance(): Observable<number> {
     return this.carDistance$.asObservable();
   }
   changeRoadSize(size: number) {
-    const newCarDistance = size + this.additionalDistance;
-    this.carDistance$.next(newCarDistance);
+    if (size === this.carDistance$.value) return;
+    this.carDistance$.next(size);
   }
 }

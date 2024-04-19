@@ -5,11 +5,11 @@
       <app-button (click)="removeCar()">REMOVE</app-button>
     </div>
     <div class="controls__race">
-      <app-button>START</app-button>
-      <app-button>STOP</app-button>
+      <app-button (click)="startRace()" [disabled]="isRaceStarted">START</app-button>
+      <app-button (click)="stopRace()" [disabled]="!isRaceStarted">STOP</app-button>
     </div>
   </div>
   <div class="car-place">
-    <mat-icon [ngStyle]="{ color: car.color }" [svgIcon]="'car'" class="car"></mat-icon>
+    <mat-icon #car [ngStyle]="{ color: car.color }" [svgIcon]="'car'" class="car"></mat-icon>
   </div>
 </div>
