@@ -24,12 +24,7 @@ export class RaceStateService {
     private resizeEmitter: ResizeEmitterService,
     private bigRaceService: BigRaceService
   ) {
-    this.bigRaceService.isBigRaceStarted$.subscribe((isBigRace) => {
-      this.isBigRace = isBigRace;
-      if (this.isBigRace) {
-        this.startRace(this.carId);
-      }
-    });
+    this.subscribeToBigRaceService();
   }
 
   getRaceStatus() {
@@ -88,5 +83,17 @@ export class RaceStateService {
           this.bigRaceService.stopBigRace();
         }
       });
+  }
+
+  private subscribeToBigRaceService() {
+    this.bigRaceService.isBigRaceStarted$.subscribe((isBigRace) => {
+      this.isBigRace = isBigRace;
+      if (this.isBigRace) {
+        this.startRace(this.carId);
+      }
+    });
+    this.bigRaceService.resetBigRace$.subscribe(() => {
+      this.stopRace(this.carId);
+    });
   }
 }

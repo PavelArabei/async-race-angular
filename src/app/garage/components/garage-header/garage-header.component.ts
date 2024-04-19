@@ -23,4 +23,8 @@ export class GarageHeaderComponent {
   startBigRace() {
     this.bigRaceService.startBigRace();
   }
+
+  resetBigRace() {
+    this.bigRaceService.resetRace();
+  }
 }

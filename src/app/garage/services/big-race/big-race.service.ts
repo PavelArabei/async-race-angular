@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BigRaceService {
-  private isBigRaceStarted = new BehaviorSubject(false);
+  private resetBigRace = new Subject<boolean>();
+  resetBigRace$ = this.resetBigRace.asObservable();
+  private isBigRaceStarted = new BehaviorSubject<boolean>(false);
   isBigRaceStarted$ = this.isBigRaceStarted.asObservable();
 
   startBigRace() {
@@ -14,5 +16,9 @@ export class BigRaceService {
 
   stopBigRace() {
     this.isBigRaceStarted.next(false);
+  }
+
+  resetRace() {
+    this.resetBigRace.next(true);
   }
 }
