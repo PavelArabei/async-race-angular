@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Car } from '@app/shared/types/car';
-import { Winner } from '@app/shared/types/winner';
+import { WinnerWithoutWins } from '@app/shared/types/winner';
 import { garageFeature } from '@garage/redux/state/garage.state';
 import { Store } from '@ngrx/store';
+import { WinnersActions } from '@winners/redux/actions/winners.actions';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -43,9 +44,8 @@ export class BigRaceService {
   addWinner({ id }: Car, time: number) {
     if (this.isWinnerSelected) return;
     const transformedTime = Number((time / 1000).toFixed(2));
-    // TODO: add wins
-    const winner: Winner = { wins: 0, id, time: transformedTime };
-    console.log(winner);
+    const winner: WinnerWithoutWins = { id, time: transformedTime };
+    this.store.dispatch(WinnersActions.addWinner({ winner }));
     this.isWinnerSelected = true;
   }
 

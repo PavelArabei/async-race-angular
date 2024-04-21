@@ -5,3 +5,4 @@ export type Winner = {
 };
 
 export type WinnerWithoutId = Omit<Winner, 'id'>;
+export type WinnerWithoutWins = Omit<Winner, 'wins'>;

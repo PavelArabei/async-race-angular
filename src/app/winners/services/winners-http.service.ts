@@ -37,7 +37,7 @@ export class WinnersHttpService {
   getWinner(id: number) {
     return this.http.get<Winner>(`/${this.CURRENT_PATH}/${id}`);
   }
-  createWinner(winner: Winner) {
+  createWinner(winner: WinnerWithoutId) {
     return this.http.post<Winner>(`/${this.CURRENT_PATH}`, winner);
   }
 
