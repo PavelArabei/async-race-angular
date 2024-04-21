@@ -8,6 +8,8 @@ import { garageFeature } from '@garage/redux/state/garage.state';
 import { provideEffects } from '@ngrx/effects';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { LoadWinnersEffects } from '@winners/redux/effects/load-winners.effects';
+import { winnersFeature } from '@winners/redux/state/winners.state';
 
 import { routes } from './app.routes';
 
@@ -18,7 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([mainUrlInterceptor])),
     provideStore(),
     provideState(garageFeature),
-    provideEffects(LoadCarsEffects),
+    provideState(winnersFeature),
+    provideEffects(LoadCarsEffects, LoadWinnersEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };

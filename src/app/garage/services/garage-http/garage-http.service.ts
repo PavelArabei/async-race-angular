@@ -18,9 +18,6 @@ export class GarageHttpService {
     private http: HttpClient,
     private store: Store
   ) {}
-  getCurrentPage(): Observable<number> {
-    return this.store.select(garageFeature.selectCurrentPage);
-  }
 
   getCars() {
     return this.getCurrentPage().pipe(
@@ -55,5 +52,9 @@ export class GarageHttpService {
       return this.addCar(car);
     });
     return forkJoin(requests);
+  }
+
+  private getCurrentPage(): Observable<number> {
+    return this.store.select(garageFeature.selectCurrentPage);
   }
 }
