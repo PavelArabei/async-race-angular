@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WinnersListComponent } from './winners-list.component';
+import { DialogComponent } from './dialog.component';
 
-describe('WinnersListComponent', () => {
-  let component: WinnersListComponent;
-  let fixture: ComponentFixture<WinnersListComponent>;
+describe('DialogComponent', () => {
+  let component: DialogComponent;
+  let fixture: ComponentFixture<DialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WinnersListComponent],
+      imports: [DialogComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(WinnersListComponent);
+    fixture = TestBed.createComponent(DialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

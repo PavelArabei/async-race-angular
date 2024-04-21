@@ -8,10 +8,9 @@ describe('WinnersPaginatorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WinnersPaginatorComponent]
-    })
-    .compileComponents();
-    
+      imports: [WinnersPaginatorComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(WinnersPaginatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

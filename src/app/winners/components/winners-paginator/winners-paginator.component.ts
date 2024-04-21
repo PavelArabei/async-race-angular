@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './winners-paginator.component.html',
-  styleUrl: './winners-paginator.component.scss'
+  styleUrl: './winners-paginator.component.scss',
 })
-export class WinnersPaginatorComponent {
-
-}
+export class WinnersPaginatorComponent {}

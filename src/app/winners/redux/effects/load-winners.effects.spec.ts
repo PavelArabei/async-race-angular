@@ -10,10 +10,7 @@ describe('LoadWinnersEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        LoadWinnersEffects,
-        provideMockActions(() => actions$)
-      ]
+      providers: [LoadWinnersEffects, provideMockActions(() => actions$)],
     });
 
     effects = TestBed.inject(LoadWinnersEffects);
