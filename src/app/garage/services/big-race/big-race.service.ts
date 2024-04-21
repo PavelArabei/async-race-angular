@@ -40,10 +40,11 @@ export class BigRaceService {
     this.isWinnerSelected = false;
     this.resetBigRace.next(true);
   }
-  addWinner({ name, id }: Car, time: number) {
+  addWinner({ id }: Car, time: number) {
     if (this.isWinnerSelected) return;
     const transformedTime = Number((time / 1000).toFixed(2));
-    const winner: Winner = { name, id, time: transformedTime };
+    // TODO: add wins
+    const winner: Winner = { wins: 0, id, time: transformedTime };
     console.log(winner);
     this.isWinnerSelected = true;
   }

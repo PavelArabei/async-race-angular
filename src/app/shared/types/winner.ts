@@ -1,5 +1,7 @@
 export type Winner = {
-  name: string;
-  id: number;
   time: number;
+  id: number;
+  wins: number;
 };
+
+export type WinnerWithoutId = Omit<Winner, 'id'>;

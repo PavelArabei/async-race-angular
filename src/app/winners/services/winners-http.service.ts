@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Winner } from '@app/shared/types/winner';
+import { Winner, WinnerWithoutId } from '@app/shared/types/winner';
 import { Store } from '@ngrx/store';
 import { RouterRoutes } from '@utils/constants/router-routes';
 import { winnersFeature } from '@winners/redux/state/winners.state';
@@ -32,5 +32,20 @@ export class WinnersHttpService {
         });
       })
     );
+  }
+
+  getWinner(id: number) {
+    return this.http.get<Winner>(`/${this.CURRENT_PATH}/${id}`);
+  }
+  createWinner(winner: Winner) {
+    return this.http.post<Winner>(`/${this.CURRENT_PATH}`, winner);
+  }
+
+  updateWinner(winner: WinnerWithoutId, id: number) {
+    return this.http.put<Winner>(`/${this.CURRENT_PATH}/${id}`, winner);
+  }
+
+  deleteWinner(id: number) {
+    return this.http.delete<Winner>(`/${this.CURRENT_PATH}/${id}`);
   }
 }
