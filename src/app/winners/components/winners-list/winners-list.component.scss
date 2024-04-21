@@ -1,0 +1,13 @@
+@import 'mixins';
+@import 'colors';
+.icon {
+  @include icon-size(44px);
+}
+.clickable {
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    background-color: $background;
+    color: $accent;
+  }
+}

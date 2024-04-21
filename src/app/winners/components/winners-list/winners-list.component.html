@@ -1,1 +1,31 @@
-<p>winners-list works!</p>
+@if (winners$ | async; as winners) {
+  <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+    <ng-container matColumnDef="id">
+      <th class="clickable" *matHeaderCellDef (click)="sort('id')" mat-header-cell>No</th>
+      <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="wins">
+      <th class="clickable" *matHeaderCellDef (click)="sort('wins')" mat-header-cell>Wins</th>
+      <td *matCellDef="let element" mat-cell>{{ element.wins }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <th class="clickable" (click)="sort('time')" *matHeaderCellDef mat-header-cell>Time</th>
+      <td *matCellDef="let element" mat-cell>{{ element.time }}</td>
+    </ng-container>
+    <ng-container matColumnDef="car">
+      <th *matHeaderCellDef mat-header-cell>car</th>
+      <td *matCellDef="let element" mat-cell>
+        <mat-icon class="icon" [ngStyle]="{ color: element.car }" [svgIcon]="'car'"></mat-icon>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell>Name</th>
+      <td *matCellDef="let element" mat-cell>{{ element.name }}</td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+  </table>
+}
