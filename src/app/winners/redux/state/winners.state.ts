@@ -1,4 +1,4 @@
-import { Winner } from '@app/shared/types/winner';
+import { WinnerInNecessaryFormat } from '@app/shared/types/winner';
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { WinnersHttpActions } from '@winners/redux/actions/winners-http.actions';
 
@@ -7,7 +7,7 @@ export type WinnersOrder = 'ASC' | 'DESC';
 export interface State {
   currentPage: number;
   totalCount: number;
-  winners: Winner[];
+  winners: WinnerInNecessaryFormat[];
   sort: WinnersSort;
   order: WinnersOrder;
   error: string | null;
@@ -24,11 +24,14 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(WinnersHttpActions.loadWinnersSuccess, (state, { data }) => ({
-    ...state,
-    winners: data.winners,
-    totalCount: data.totalCount,
-  }))
+  on(
+    WinnersHttpActions.loadWinnersInNecessaryFormat,
+    (state, { data }): State => ({
+      ...state,
+      winners: data.winners,
+      totalCount: data.totalCount,
+    })
+  )
 );
 
 export const winnersFeature = createFeature({

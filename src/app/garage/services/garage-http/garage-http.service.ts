@@ -42,6 +42,10 @@ export class GarageHttpService {
     return this.http.delete<Car>(`/${this.CURRENT_PATH}/${id}`);
   }
 
+  getCar(id: number) {
+    return this.http.get<Car>(`/${this.CURRENT_PATH}/${id}`);
+  }
+
   addHundredCars() {
     const requests = Array.from({ length: 100 }, () => {
       const firsName = carsFirsName[Math.floor(Math.random() * carsFirsName.length)];

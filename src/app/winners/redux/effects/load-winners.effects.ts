@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { WinnerInNecessaryFormat } from '@app/shared/types/winner';
+import { GarageHttpService } from '@garage/services/garage-http/garage-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { WinnersActions } from '@winners/redux/actions/winners.actions';
 import { WinnersHttpActions } from '@winners/redux/actions/winners-http.actions';
 import { WinnersHttpService } from '@winners/services/winners-http.service';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class LoadWinnersEffects {
@@ -16,9 +18,12 @@ export class LoadWinnersEffects {
             const newCars = response.body || [];
             const totalCount = Number(response.headers.get('X-Total-Count') || newCars.length);
             return WinnersHttpActions.loadWinnersSuccess({
-              data: { winners: newCars, totalCount },
+              winners: newCars,
+              totalCount,
             });
+            // return { winners: newCars, totalCount };
           }),
+
           catchError((error: { message: string }) =>
             of(WinnersHttpActions.loadFailure({ error: error.message }))
           )
@@ -26,6 +31,42 @@ export class LoadWinnersEffects {
       )
     );
   });
+
+  loadWinnersInNecessaryFormat$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(WinnersHttpActions.loadWinnersSuccess),
+      switchMap(({ winners, totalCount }) => {
+        const requestArray = winners.map((winner) => {
+          return this.garageHttpService.getCar(winner.id);
+        });
+        return forkJoin(requestArray).pipe(
+          map((cars) => {
+            const newWinners: WinnerInNecessaryFormat[] = winners.map((winner, index) => {
+              return { ...winner, ...cars[index] };
+            });
+
+            return WinnersHttpActions.loadWinnersInNecessaryFormat({
+              data: { winners: newWinners, totalCount },
+            });
+          })
+        );
+      })
+    );
+  });
+
+  //
+  //     switchMap(({ winners, totalCount }) => {
+  //     const requestArray = winners.map((winner) => {
+  //         return this.garageHttpService.getCar(winner.id);
+  //     });
+  //     return forkJoin(requestArray).pipe(
+  //         map((cars) => {
+  //             console.log('cars', cars);
+  //             console.log('winners', winners);
+  //             return of(WinnersHttpActions.loadFailure({ error: 'asd' }));
+  //         })
+  //     );
+  // }),
 
   newWinner$ = createEffect(() => {
     return this.actions$.pipe(
@@ -76,6 +117,7 @@ export class LoadWinnersEffects {
 
   constructor(
     private winnersHttpService: WinnersHttpService,
+    private garageHttpService: GarageHttpService,
     private actions$: Actions
   ) {}
 }
