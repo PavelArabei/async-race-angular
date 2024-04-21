@@ -1,5 +1,7 @@
 <form (ngSubmit)="submit()" [formGroup]="form" class="form">
-  <input [formControl]="nameControl" type="text" />
-  <input [formControl]="colorControl" type="color" />
-  <app-button [disabled]="isDisabled" type="submit"><ng-content></ng-content></app-button>
+  <input [formControl]="nameControl" class="form__name" type="text" />
+  <input [formControl]="colorControl" class="form__color" type="color" />
+  <app-button [disabled]="isDisabled" class="form__button" type="submit">
+    <ng-content></ng-content>
+  </app-button>
 </form>

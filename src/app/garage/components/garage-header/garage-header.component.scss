@@ -3,9 +3,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  gap: 8rem;
 }
 
 .sub-container {
   display: flex;
   gap: 1rem;
+  width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  :host {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }

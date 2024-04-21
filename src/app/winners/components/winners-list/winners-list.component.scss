@@ -1,5 +1,6 @@
 @import 'mixins';
 @import 'colors';
+
 .icon {
   @include icon-size(44px);
 }
