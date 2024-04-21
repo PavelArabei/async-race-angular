@@ -1,5 +1,6 @@
 import { WinnerInNecessaryFormat } from '@app/shared/types/winner';
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { WinnersActions } from '@winners/redux/actions/winners.actions';
 import { WinnersHttpActions } from '@winners/redux/actions/winners-http.actions';
 
 export type WinnersSort = 'id' | 'wins' | 'time';
@@ -31,7 +32,22 @@ export const reducer = createReducer(
       winners: data.winners,
       totalCount: data.totalCount,
     })
-  )
+  ),
+  on(WinnersActions.sortWinners, (state, { data }): State => {
+    const isOrderChanged = state.sort === data;
+
+    if (isOrderChanged) {
+      return {
+        ...state,
+        order: state.order === 'ASC' ? 'DESC' : 'ASC',
+      };
+    }
+    return {
+      ...state,
+      sort: data,
+      order: 'ASC',
+    };
+  })
 );
 
 export const winnersFeature = createFeature({
