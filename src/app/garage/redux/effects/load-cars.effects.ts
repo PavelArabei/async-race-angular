@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
 import { GarageHttpService } from '@garage/services/garage-http/garage-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class LoadCarsEffects {
   loadCars$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GarageHttpActions.loadCars),
-      exhaustMap(() =>
+      switchMap(() =>
         this.garageHttpService.getCars().pipe(
           map((cars) => {
             const newCars = cars.body || [];
@@ -27,7 +27,7 @@ export class LoadCarsEffects {
   addCar$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GarageHttpActions.addCar),
-      exhaustMap(({ data }) =>
+      switchMap(({ data }) =>
         this.garageHttpService.addCar(data).pipe(
           map(() => GarageHttpActions.addCarSuccess()),
           catchError((error: { message: string }) =>
@@ -41,7 +41,7 @@ export class LoadCarsEffects {
   updateCar$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GarageHttpActions.updateCar),
-      exhaustMap(({ data }) =>
+      switchMap(({ data }) =>
         this.garageHttpService.updateCar(data).pipe(
           map((car) => GarageHttpActions.updateCarSuccess({ data: car })),
           catchError((error: { message: string }) =>
@@ -55,7 +55,7 @@ export class LoadCarsEffects {
   deleteCar$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GarageHttpActions.deleteCar),
-      exhaustMap(({ id }) =>
+      switchMap(({ id }) =>
         this.garageHttpService.deleteCar(id).pipe(
           map(() => GarageHttpActions.deleteCarSuccess()),
           catchError((error: { message: string }) =>
@@ -69,7 +69,7 @@ export class LoadCarsEffects {
   addHundredCars$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(GarageHttpActions.add100Cars), // Тип действия, который активирует эффект
-      exhaustMap(() =>
+      switchMap(() =>
         this.garageHttpService.addHundredCars().pipe(
           map(() => GarageHttpActions.add100CarsSuccess()),
           catchError((error: { message: string }) =>
@@ -88,7 +88,7 @@ export class LoadCarsEffects {
         GarageHttpActions.deleteCarSuccess,
         GarageHttpActions.add100CarsSuccess
       ),
-      exhaustMap(() => of(GarageHttpActions.loadCars()))
+      switchMap(() => of(GarageHttpActions.loadCars()))
     );
   });
 

@@ -1,6 +1,7 @@
 import { Car } from '@app/shared/types/car';
+import { GarageActions } from '@garage/redux/actions/garage.actions';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 
 export interface State {
   currentPage: number;
@@ -38,10 +39,24 @@ export const reducer = createReducer(
       isLoading: false,
       error,
     })
+  ),
+  on(
+    GarageActions.nextPageGarageActions,
+    (state, { data }): State => ({ ...state, currentPage: data })
   )
 );
 
 export const garageFeature = createFeature({
   name: 'garage',
   reducer,
+  extraSelectors: ({ selectTotalCount, selectCurrentPage, selectCars }) => ({
+    selectPageAndTotalCount: createSelector(
+      selectTotalCount,
+      selectCurrentPage,
+      (totalCount, currentPage) => {
+        return { totalCount, currentPage };
+      }
+    ),
+    selectCarsInRace: createSelector(selectCars, (cars) => cars.length),
+  }),
 });

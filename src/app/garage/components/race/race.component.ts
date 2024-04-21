@@ -31,7 +31,6 @@ export class RaceComponent implements OnInit, AfterViewInit {
   @Input({ required: true }) car!: Car;
   isRaceStarted$!: Observable<boolean>;
   @ViewChild('car') carImage!: MatIcon;
-  protected readonly Boolean = Boolean;
 
   constructor(
     private readonly store: Store,
@@ -69,7 +68,7 @@ export class RaceComponent implements OnInit, AfterViewInit {
   }
 
   private addRequiredParamsToRaceState() {
-    this.raceStateService.addCarAndId(this.carImage._elementRef.nativeElement, this.car.id);
+    this.raceStateService.addCarAndId(this.carImage._elementRef.nativeElement, this.car);
     this.raceStateService.addDestroyRef(this.destroyRef);
     this.raceStateService.addDistance();
   }
