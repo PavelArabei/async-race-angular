@@ -7,5 +7,6 @@ export const WinnersActions = createActionGroup({
   events: {
     'add winner': props<{ winner: WinnerWithoutWins }>(),
     'sort winners': props<{ data: WinnersSort }>(),
+    'next page': props<{ data: number }>(),
   },
 });

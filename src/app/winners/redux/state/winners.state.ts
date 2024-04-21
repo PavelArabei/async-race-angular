@@ -47,19 +47,33 @@ export const reducer = createReducer(
       sort: data,
       order: 'ASC',
     };
-  })
+  }),
+  on(
+    WinnersActions.nextPage,
+    (state, { data }): State => ({
+      ...state,
+      currentPage: data,
+    })
+  )
 );
 
 export const winnersFeature = createFeature({
   name: 'winners',
   reducer,
-  extraSelectors: ({ selectCurrentPage, selectSort, selectOrder }) => ({
+  extraSelectors: ({ selectCurrentPage, selectSort, selectTotalCount, selectOrder }) => ({
     selectTriggers: createSelector(
       selectCurrentPage,
       selectSort,
       selectOrder,
       (currentPage, sortType, OrderType) => {
         return { currentPage, sortType, OrderType };
+      }
+    ),
+    selectPageAndTotalCount: createSelector(
+      selectTotalCount,
+      selectCurrentPage,
+      (totalCount, currentPage) => {
+        return { totalCount, currentPage };
       }
     ),
   }),
