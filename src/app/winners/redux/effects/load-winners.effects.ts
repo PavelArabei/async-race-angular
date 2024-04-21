@@ -11,9 +11,10 @@ export class LoadWinnersEffects {
       ofType(WinnersHttpActions.loadWinners),
       switchMap(() =>
         this.winnersHttpService.getWinners().pipe(
-          map((cars) => {
-            const newCars = cars.body || [];
-            const totalCount = Number(cars.headers.get('X-Total-Count') || newCars.length);
+          map((response) => {
+            const newCars = response.body || [];
+            console.log(response);
+            const totalCount = Number(response.headers.get('X-Total-Count') || newCars.length);
             return WinnersHttpActions.loadWinnersSuccess({
               data: { winners: newCars, totalCount },
             });
