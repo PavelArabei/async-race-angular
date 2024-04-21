@@ -17,7 +17,7 @@ export const initialState: State = {
   winners: [],
   currentPage: 1,
   totalCount: 0,
-  sort: 'wins',
+  sort: 'id',
   order: 'ASC',
   error: null,
 };

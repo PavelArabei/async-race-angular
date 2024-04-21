@@ -1,5 +1,5 @@
 @if (winners$ | async; as winners) {
-  <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+  <table [dataSource]="winners" class="mat-elevation-z8" mat-table>
     <ng-container matColumnDef="id">
       <th class="clickable" *matHeaderCellDef (click)="sort('id')" mat-header-cell>No</th>
       <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
@@ -15,9 +15,9 @@
       <td *matCellDef="let element" mat-cell>{{ element.time }}</td>
     </ng-container>
     <ng-container matColumnDef="car">
-      <th *matHeaderCellDef mat-header-cell>car</th>
+      <th *matHeaderCellDef mat-header-cell>Car</th>
       <td *matCellDef="let element" mat-cell>
-        <mat-icon class="icon" [ngStyle]="{ color: element.car }" [svgIcon]="'car'"></mat-icon>
+        <mat-icon class="icon" [ngStyle]="{ color: element.color }" [svgIcon]="'car'"></mat-icon>
       </td>
     </ng-container>
     <ng-container matColumnDef="name">

@@ -13,7 +13,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { Winner } from '@app/shared/types/winner';
+import { WinnerInNecessaryFormat } from '@app/shared/types/winner';
 import { Store } from '@ngrx/store';
 import { winnersFeature, WinnersSort } from '@winners/redux/state/winners.state';
 import { Observable } from 'rxjs';
@@ -66,10 +66,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrl: './winners-list.component.scss',
 })
 export class WinnersListComponent {
-  displayedColumns: string[] = ['id', 'car', 'name', 'wins', 'time'];
+  displayedColumns = ['id', 'car', 'name', 'wins', 'time'];
   dataSource = ELEMENT_DATA;
   private store = inject(Store);
-  winners$: Observable<Winner[]> = this.store.select(winnersFeature.selectWinners);
+  winners$: Observable<WinnerInNecessaryFormat[]> = this.store.select(winnersFeature.selectWinners);
 
   sort(sortType: WinnersSort) {
     console.log(sortType);

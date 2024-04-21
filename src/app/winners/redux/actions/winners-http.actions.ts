@@ -12,6 +12,8 @@ export const WinnersHttpActions = createActionGroup({
     'Load Failure': props<{ error: string }>(),
     'Create Winner': props<{ winner: WinnerWithoutId }>(),
     'Update Winner': props<{ winner: Winner }>(),
+    'Update Winner Success': emptyProps(),
+    'Create Winner Success': emptyProps(),
     // 'Delete Winner': props<{ id: number }>(),
   },
 });

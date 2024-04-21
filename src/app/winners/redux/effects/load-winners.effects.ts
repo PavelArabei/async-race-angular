@@ -15,13 +15,12 @@ export class LoadWinnersEffects {
       switchMap(() =>
         this.winnersHttpService.getWinners().pipe(
           map((response) => {
-            const newCars = response.body || [];
-            const totalCount = Number(response.headers.get('X-Total-Count') || newCars.length);
+            const winners = response.body || [];
+            const totalCount = Number(response.headers.get('X-Total-Count') || winners.length);
             return WinnersHttpActions.loadWinnersSuccess({
-              winners: newCars,
+              winners,
               totalCount,
             });
-            // return { winners: newCars, totalCount };
           }),
 
           catchError((error: { message: string }) =>
@@ -54,20 +53,6 @@ export class LoadWinnersEffects {
     );
   });
 
-  //
-  //     switchMap(({ winners, totalCount }) => {
-  //     const requestArray = winners.map((winner) => {
-  //         return this.garageHttpService.getCar(winner.id);
-  //     });
-  //     return forkJoin(requestArray).pipe(
-  //         map((cars) => {
-  //             console.log('cars', cars);
-  //             console.log('winners', winners);
-  //             return of(WinnersHttpActions.loadFailure({ error: 'asd' }));
-  //         })
-  //     );
-  // }),
-
   newWinner$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(WinnersActions.addWinner),
@@ -92,7 +77,7 @@ export class LoadWinnersEffects {
       ofType(WinnersHttpActions.updateWinner),
       switchMap(({ winner }) =>
         this.winnersHttpService.updateWinner(winner, winner.id).pipe(
-          map(() => WinnersHttpActions.loadWinners()),
+          map(() => WinnersHttpActions.updateWinnerSuccess()),
           catchError((error: { message: string }) =>
             of(WinnersHttpActions.loadFailure({ error: error.message }))
           )
@@ -106,7 +91,7 @@ export class LoadWinnersEffects {
       ofType(WinnersHttpActions.createWinner),
       switchMap(({ winner }) =>
         this.winnersHttpService.createWinner(winner).pipe(
-          map(() => WinnersHttpActions.loadWinners()),
+          map(() => WinnersHttpActions.createWinnerSuccess()),
           catchError((error: { message: string }) =>
             of(WinnersHttpActions.loadFailure({ error: error.message }))
           )
