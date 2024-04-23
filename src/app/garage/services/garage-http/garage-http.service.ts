@@ -5,7 +5,7 @@ import { garageFeature } from '@garage/redux/state/garage.state';
 import { Store } from '@ngrx/store';
 import { carsFirsName, carsSecondName } from '@utils/constants/car-names';
 import { RouterRoutes } from '@utils/constants/router-routes';
-import { PAGE_SIZE } from '@utils/constants/variables';
+import { CAR_PAGE_SIZE } from '@utils/constants/variables';
 import { forkJoin, Observable, switchMap } from 'rxjs';
 
 @Injectable({
@@ -13,7 +13,7 @@ import { forkJoin, Observable, switchMap } from 'rxjs';
 })
 export class GarageHttpService {
   private readonly CURRENT_PATH = RouterRoutes.GARAGE;
-  private LIMIT_PER_PAGE = PAGE_SIZE;
+  private LIMIT_PER_PAGE = CAR_PAGE_SIZE;
 
   constructor(
     private http: HttpClient,

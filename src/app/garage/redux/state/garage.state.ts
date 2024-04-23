@@ -2,6 +2,7 @@ import { Car } from '@app/shared/types/car';
 import { GarageActions } from '@garage/redux/actions/garage.actions';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { CAR_PAGE_SIZE } from '@utils/constants/variables';
 import { updateCurrentPage } from '@utils/functions/update-page';
 
 export interface State {
@@ -25,7 +26,7 @@ export const reducer = createReducer(
       ...state,
       cars: data.cars,
       totalCount: data.totalCars,
-      currentPage: updateCurrentPage(state.currentPage, data.totalCars),
+      currentPage: updateCurrentPage(state.currentPage, data.totalCars, CAR_PAGE_SIZE),
     };
   }),
 

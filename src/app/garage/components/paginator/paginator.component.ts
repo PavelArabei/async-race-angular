@@ -4,7 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { GarageActions } from '@garage/redux/actions/garage.actions';
 import { garageFeature } from '@garage/redux/state/garage.state';
 import { Store } from '@ngrx/store';
-import { PAGE_SIZE } from '@utils/constants/variables';
+import { CAR_PAGE_SIZE } from '@utils/constants/variables';
 
 @Component({
   selector: 'app-paginator',
@@ -16,7 +16,7 @@ import { PAGE_SIZE } from '@utils/constants/variables';
 })
 export class PaginatorComponent {
   carsLengthAndPage$ = this.store.select(garageFeature.selectPageAndTotalCount);
-  pageSize = PAGE_SIZE;
+  pageSize = CAR_PAGE_SIZE;
   constructor(private store: Store) {}
 
   changePage(event: PageEvent) {

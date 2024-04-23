@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
-import { PAGE_SIZE } from '@utils/constants/variables';
+import { WINNERS_PAGE_SIZE } from '@utils/constants/variables';
 import { WinnersActions } from '@winners/redux/actions/winners.actions';
 import { winnersFeature } from '@winners/redux/state/winners.state';
 
@@ -16,7 +16,7 @@ import { winnersFeature } from '@winners/redux/state/winners.state';
 })
 export class WinnersPaginatorComponent {
   winnersLengthAndPage$ = this.store.select(winnersFeature.selectPageAndTotalCount);
-  pageSize = PAGE_SIZE;
+  pageSize = WINNERS_PAGE_SIZE;
   constructor(private store: Store) {}
   changePage($event: PageEvent) {
     const newPage = $event.pageIndex + 1;
