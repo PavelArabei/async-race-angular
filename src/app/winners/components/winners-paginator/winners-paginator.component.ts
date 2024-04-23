@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import { PAGE_SIZE } from '@utils/constants/variables';
@@ -12,6 +12,7 @@ import { winnersFeature } from '@winners/redux/state/winners.state';
   imports: [AsyncPipe, MatPaginator],
   templateUrl: './winners-paginator.component.html',
   styleUrl: './winners-paginator.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WinnersPaginatorComponent {
   winnersLengthAndPage$ = this.store.select(winnersFeature.selectPageAndTotalCount);

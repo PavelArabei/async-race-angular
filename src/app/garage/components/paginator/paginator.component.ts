@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { GarageActions } from '@garage/redux/actions/garage.actions';
 import { garageFeature } from '@garage/redux/state/garage.state';
@@ -12,6 +12,7 @@ import { PAGE_SIZE } from '@utils/constants/variables';
   imports: [MatPaginator, AsyncPipe],
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorComponent {
   carsLengthAndPage$ = this.store.select(garageFeature.selectPageAndTotalCount);

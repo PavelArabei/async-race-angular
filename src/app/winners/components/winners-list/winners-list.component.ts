@@ -1,5 +1,5 @@
 import { AsyncPipe, NgStyle } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import {
   MatCell,
@@ -39,6 +39,7 @@ import { Observable } from 'rxjs';
   ],
   templateUrl: './winners-list.component.html',
   styleUrl: './winners-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WinnersListComponent {
   displayedColumns = ['id', 'car', 'name', 'wins', 'time'];
