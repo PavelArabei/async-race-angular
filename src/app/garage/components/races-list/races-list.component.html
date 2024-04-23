@@ -1,6 +1,6 @@
 <div class="race-container">
   @if (cars$ | async; as cars) {
-    <ul class="race">
+    <ul class="race race-start">
       @for (car of cars; track car.id) {
         <li class="race__item">
           <mat-divider></mat-divider>
@@ -29,7 +29,7 @@
         <span class="divider__text">END</span>
         <div class="divider__line"></div>
       </div>
-      <ul class="race">
+      <ul class="race finish">
         @for (car of cars; track car.id) {
           <li class="race__item">
             <mat-divider></mat-divider>

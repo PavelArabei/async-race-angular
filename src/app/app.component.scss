@@ -12,3 +12,14 @@
   flex-grow: 1;
   margin-top: 2rem;
 }
+
+@media screen and (max-width: 1200px) {
+  :host {
+    max-width: 90%;
+  }
+}
+@media screen and (max-width: 768px) {
+  :host {
+    max-width: 95%;
+  }
+}

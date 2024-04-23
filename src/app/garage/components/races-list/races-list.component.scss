@@ -5,6 +5,7 @@ $item-height: 80px;
   display: flex;
   width: 100%;
   margin-top: 1rem;
+  min-height: $item-height;
 }
 
 .race {
@@ -15,14 +16,21 @@ $item-height: 80px;
 
   &__item {
     height: $item-height;
+    min-height: $item-height;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
   &__name {
-    margin-left: 1rem;
+    flex-grow: 1;
+    text-align: center;
+    //margin-left: 1rem;
   }
+}
+
+.race-start {
+  min-width: 200px;
 }
 .race-road {
   display: flex;
@@ -45,6 +53,5 @@ $item-height: 80px;
   }
   &__text {
     writing-mode: vertical-rl;
-    //transform: rotate(180deg);
   }
 }
