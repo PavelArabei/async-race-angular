@@ -71,7 +71,11 @@ export class LoadWinnersEffects {
             });
           }),
           catchError(() =>
-            of(WinnersHttpActions.createWinner({ winner: { wins: 1, time: winner.time } }))
+            of(
+              WinnersHttpActions.createWinner({
+                winner: { wins: 1, time: winner.time, id: winner.id },
+              })
+            )
           )
         )
       )

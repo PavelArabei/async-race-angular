@@ -1,4 +1,4 @@
-import { Winner, WinnerInNecessaryFormat, WinnerWithoutId } from '@app/shared/types/winner';
+import { Winner, WinnerInNecessaryFormat } from '@app/shared/types/winner';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const WinnersHttpActions = createActionGroup({
@@ -10,7 +10,7 @@ export const WinnersHttpActions = createActionGroup({
       data: { winners: WinnerInNecessaryFormat[]; totalCount: number };
     }>(),
     'Load Failure': props<{ error: string }>(),
-    'Create Winner': props<{ winner: WinnerWithoutId }>(),
+    'Create Winner': props<{ winner: Winner }>(),
     'Update Winner': props<{ winner: Winner }>(),
     'Update Winner Success': emptyProps(),
     'Create Winner Success': emptyProps(),
