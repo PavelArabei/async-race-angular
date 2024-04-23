@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+@include mat.core();
+@import 'mat-palette';
+$font-family: mat.get-theme-typography($dark-theme, body-1, 'font-family');
+$primary: mat.get-theme-color($dark-theme, primary, default);
+$accent: mat.get-theme-color($dark-theme, accent, A400);
+$warn: mat.get-theme-color($dark-theme, warn, 700);
+$text: mat.get-theme-color($dark-theme, foreground, text);
+$secondary-text: mat.get-theme-color($dark-theme, foreground, secondary-text);
+$background-light: mat.get-theme-color($dark-theme, background, card);
+$background: mat.get-theme-color($dark-theme, background, background);
+$background-dark: mat.get-theme-color($dark-theme, background, app-bar);

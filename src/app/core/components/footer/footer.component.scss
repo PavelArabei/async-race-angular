@@ -1,0 +1,17 @@
+@import 'colors';
+@import 'mixins';
+
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.link {
+  cursor: pointer;
+  &__icon {
+    @include icon-size(64px);
+    color: $accent;
+    margin-bottom: 1rem;
+  }
+}

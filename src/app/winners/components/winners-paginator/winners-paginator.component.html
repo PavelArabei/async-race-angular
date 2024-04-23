@@ -1,0 +1,14 @@
+@if (winnersLengthAndPage$ | async; as data) {
+  <mat-paginator
+    color="accent"
+    #paginator
+    [length]="data.totalCount"
+    [pageSize]="pageSize"
+    [showFirstLastButtons]="true"
+    [hidePageSize]="true"
+    [pageIndex]="data.currentPage - 1"
+    (page)="changePage($event)"
+    aria-label="Select page"
+    class="demo-paginator"
+  ></mat-paginator>
+}

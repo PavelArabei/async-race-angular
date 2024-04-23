@@ -1,0 +1,8 @@
+<button [class.disabled]="disabled" [disabled]="disabled" class="button">
+  <div class="button__content">
+    <ng-content></ng-content>
+    @if (svgName) {
+      <mat-icon class="button__icon" [svgIcon]="svgName"></mat-icon>
+    }
+  </div>
+</button>

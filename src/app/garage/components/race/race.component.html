@@ -1,0 +1,19 @@
+<div [class.chosen-bg]="isSelected | async" class="start">
+  <div class="controls">
+    <div class="controls__car">
+      <app-button (click)="selectCar()" [class.chosen]="isSelected | async">SELECT</app-button>
+      <app-button (click)="removeCar()">REMOVE</app-button>
+    </div>
+    <div class="controls__race">
+      <app-button (click)="startRace()" [disabled]="(isRaceStarted$ | async) === true">
+        START
+      </app-button>
+      <app-button (click)="addCarToGarage()" [disabled]="(isRaceStarted$ | async) === false">
+        STOP
+      </app-button>
+    </div>
+  </div>
+  <div class="car-place">
+    <mat-icon #car [ngStyle]="{ color: getCarColor() }" [svgIcon]="'car'" class="car"></mat-icon>
+  </div>
+</div>

@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from '@core/components/footer/footer.component';
+import { HeaderComponent } from '@core/components/header/header.component';
+import { IconRegisterService } from '@core/services/icon-register.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'async-race-angular';
+export class AppComponent implements OnInit {
+  private readonly iconRegisterService = inject(IconRegisterService);
+
+  public ngOnInit(): void {
+    this.iconRegisterService.registerIcons();
+  }
 }

@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+@import 'normolize';
+@import 'mat-palette';
+@import 'colors';
+
+@include mat.all-component-themes($dark-theme);
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Comic Neue', cursive;
+  background-color: $background-dark;
+  color: $text;
+}
+
+.mat-mdc-table {
+  background-color: $background-dark !important;
+  box-shadow: transparent 0 0 0 0 !important;
+}
+.mat-mdc-paginator {
+  background-color: $background-dark !important;
+}

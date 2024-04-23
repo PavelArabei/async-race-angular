@@ -1,0 +1,74 @@
+@import 'mixins';
+@import 'colors';
+:host {
+  display: flex;
+}
+
+$car-size: 60px;
+
+.start {
+  display: flex;
+  position: relative;
+  align-items: center;
+  color: $text;
+
+  &__line {
+  }
+}
+
+.car-place {
+  position: relative;
+  width: $car-size;
+  height: 100%;
+  margin: 0 0.5rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  &__line {
+    background-color: $accent;
+    width: 0.1rem;
+    height: $car-size;
+  }
+  &__text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 14px;
+  &__car,
+  &__race {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+.car {
+  position: absolute;
+  @include icon-size($car-size);
+  top: 0.25rem;
+}
+
+.road {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  width: 100%;
+
+  &__start {
+    display: flex;
+    gap: 0.25rem;
+  }
+}
+
+.chosen {
+  color: $accent;
+}
+.chosen-bg {
+  background-color: $background;
+}
