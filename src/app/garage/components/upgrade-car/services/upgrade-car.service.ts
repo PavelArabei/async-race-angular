@@ -4,30 +4,31 @@ import { FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { Car, CarWithoutId } from '@app/shared/types/car';
 import { UpgradeType } from '@garage/components/upgrade-car/upgrade-car.component';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
-import { UpdateCarService } from '@garage/services/update-car/update-car.service';
+import { UpgradeCarActions } from '@garage/redux/actions/upgrade-car.actions';
+import { carFeature } from '@garage/redux/state/update-car.state';
 import { Store } from '@ngrx/store';
 
 export type CarForm = {
   name: FormControl<string>;
   color: FormControl<string>;
 };
+
 @Injectable()
 export class UpgradeCarService {
   private car: Car | null = null;
   private form!: FormGroup<CarForm>;
-  private isSelected = false;
   private isDisabled = false;
   private upgradeType!: UpgradeType;
   constructor(
     private readonly store: Store,
     private readonly fb: NonNullableFormBuilder,
-    private readonly updateCarService: UpdateCarService,
     private readonly destroyRef: DestroyRef
   ) {}
 
   initForm(upgradeType: UpgradeType, cdr: ChangeDetectorRef) {
-    this.isDisabled = !this.isSelected && upgradeType === 'upgrade';
+    this.isDisabled = upgradeType === 'upgrade';
     this.upgradeType = upgradeType;
+
     this.form = this.fb.group({
       name: this.fb.control({
         value: '',
@@ -38,6 +39,7 @@ export class UpgradeCarService {
         disabled: this.isDisabled,
       }),
     });
+
     this.subscribe(cdr);
     return this.form;
   }
@@ -48,7 +50,6 @@ export class UpgradeCarService {
       this.store.dispatch(GarageHttpActions.addCar({ data: carWithoutId }));
     } else if (this.car) {
       const updatedCar: Car = { ...carWithoutId, id: this.car.id };
-      this.updateCarService.unselectCar();
       this.store.dispatch(GarageHttpActions.updateCar({ data: updatedCar }));
     }
 
@@ -56,37 +57,48 @@ export class UpgradeCarService {
   }
 
   subscribe(cdr: ChangeDetectorRef) {
-    if (this.upgradeType === 'create') return;
-    this.subscribeToIsSelectedCar();
-    this.subscribeToSelectedCar(cdr);
+    if (this.upgradeType === 'create') this.subscribeToCreatedCar();
+    else this.subscribeToUpdateCar(cdr);
   }
 
-  private subscribeToIsSelectedCar() {
-    this.updateCarService.selectedCar.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((car) => {
-      if (this.isSelected) {
-        this.form.controls.name.setValue(car.name);
-        this.form.controls.color.setValue(car.color);
+  private subscribeToUpdateCar(cdr: ChangeDetectorRef) {
+    const { name, color } = this.form.controls;
+    const selectedCar$ = this.store.select(carFeature.selectSelectedCar);
+    selectedCar$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((car) => {
+      if (car) {
+        name.setValue(car.name);
+        color.setValue(car.color);
+        this.car = car;
+
+        name.enable();
+        color.enable();
+      } else {
+        this.car = null;
+        name.disable();
+        color.disable();
       }
 
-      this.car = car;
+      cdr.markForCheck();
     });
   }
 
-  private subscribeToSelectedCar(cdr: ChangeDetectorRef) {
-    this.updateCarService.isSelected
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((isSelected) => {
-        if (isSelected) {
-          this.isDisabled = false;
-          this.form.controls.name.enable();
-          this.form.controls.color.enable();
-        } else {
-          this.isDisabled = true;
-          this.form.controls.name.disable();
-          this.form.controls.color.disable();
-        }
-        this.isSelected = isSelected;
-        cdr.markForCheck();
-      });
+  private subscribeToCreatedCar() {
+    const { name, color } = this.form.controls;
+    const createdCar$ = this.store.select(carFeature.selectCreatedCar);
+
+    createdCar$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((car) => {
+      if (name.value !== car.name || color.value !== car.color) {
+        name.setValue(car.name);
+        color.setValue(car.color);
+      }
+    });
+
+    this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+      this.store.dispatch(
+        UpgradeCarActions.updateCreatedCar({
+          data: { name: value.name || '', color: value.color || '#000000' },
+        })
+      );
+    });
   }
 }

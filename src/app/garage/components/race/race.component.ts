@@ -14,6 +14,7 @@ import { Car } from '@app/shared/types/car';
 import { ButtonComponent } from '@core/components/button/button.component';
 import { RaceStateService } from '@garage/components/race/services/race-state/race-state.service';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
+import { UpgradeCarActions } from '@garage/redux/actions/upgrade-car.actions';
 import { UpdateCarService } from '@garage/services/update-car/update-car.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -64,7 +65,7 @@ export class RaceComponent implements OnInit, AfterViewInit {
   }
 
   selectCar() {
-    this.updateCarService.selectCar(this.car);
+    this.store.dispatch(UpgradeCarActions.selectUpgradedCar({ car: this.car }));
   }
 
   private addRequiredParamsToRaceState() {

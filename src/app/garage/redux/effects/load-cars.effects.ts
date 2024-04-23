@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
+import { UpgradeCarActions } from '@garage/redux/actions/upgrade-car.actions';
 import { GarageHttpService } from '@garage/services/garage-http/garage-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
@@ -80,7 +81,7 @@ export class LoadCarsEffects {
     );
   });
 
-  handleAddCar$ = createEffect(() => {
+  handleActions$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
         GarageHttpActions.addCarSuccess,
@@ -89,6 +90,13 @@ export class LoadCarsEffects {
         GarageHttpActions.add100CarsSuccess
       ),
       switchMap(() => of(GarageHttpActions.loadCars()))
+    );
+  });
+
+  handleUpdateCar$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(GarageHttpActions.updateCar),
+      map(() => UpgradeCarActions.unselectUpgradedCar())
     );
   });
 

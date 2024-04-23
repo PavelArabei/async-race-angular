@@ -5,6 +5,7 @@ import { provideRouter } from '@angular/router';
 import { mainUrlInterceptor } from '@core/interceptors/main-url.interceptor';
 import { LoadCarsEffects } from '@garage/redux/effects/load-cars.effects';
 import { garageFeature } from '@garage/redux/state/garage.state';
+import { carFeature } from '@garage/redux/state/update-car.state';
 import { provideEffects } from '@ngrx/effects';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideState(garageFeature),
     provideState(winnersFeature),
+    provideState(carFeature),
     provideEffects(LoadCarsEffects, LoadWinnersEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
