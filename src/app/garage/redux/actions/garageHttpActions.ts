@@ -12,7 +12,7 @@ export const GarageHttpActions = createActionGroup({
     'Update Car': props<{ data: Car }>(),
     'Update Car Success': props<{ data: Car }>(),
     'Delete Car': props<{ id: number }>(),
-    'Delete Car Success': emptyProps(),
+    'Delete Car Success': props<{ id: number }>(),
     'Add 100 Cars': emptyProps(),
     'Add 100 Cars Success': emptyProps(),
   },

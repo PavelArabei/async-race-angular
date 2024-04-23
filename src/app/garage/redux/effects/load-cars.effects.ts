@@ -57,7 +57,7 @@ export class LoadCarsEffects {
       ofType(GarageHttpActions.deleteCar),
       switchMap(({ id }) =>
         this.garageHttpService.deleteCar(id).pipe(
-          map(() => GarageHttpActions.deleteCarSuccess()),
+          map(() => GarageHttpActions.deleteCarSuccess({ id })),
           catchError((error: { message: string }) =>
             of(GarageHttpActions.loadFailure({ error: error.message }))
           )

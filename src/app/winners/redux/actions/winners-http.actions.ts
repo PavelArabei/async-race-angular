@@ -14,6 +14,8 @@ export const WinnersHttpActions = createActionGroup({
     'Update Winner': props<{ winner: Winner }>(),
     'Update Winner Success': emptyProps(),
     'Create Winner Success': emptyProps(),
-    // 'Delete Winner': props<{ id: number }>(),
+    'Check Winner': props<{ id: number }>(),
+    'Delete Winner ': props<{ id: number }>(),
+    'Delete Winner Success': emptyProps(),
   },
 });

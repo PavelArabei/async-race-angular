@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WinnerInNecessaryFormat } from '@app/shared/types/winner';
+import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
 import { GarageHttpService } from '@garage/services/garage-http/garage-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { WinnersActions } from '@winners/redux/actions/winners.actions';
@@ -17,6 +18,10 @@ export class LoadWinnersEffects {
           map((response) => {
             const winners = response.body || [];
             const totalCount = Number(response.headers.get('X-Total-Count') || winners.length);
+            if (!winners.length)
+              return WinnersHttpActions.loadWinnersInNecessaryFormat({
+                data: { winners: [], totalCount },
+              });
             return WinnersHttpActions.loadWinnersSuccess({
               winners,
               totalCount,
@@ -38,6 +43,7 @@ export class LoadWinnersEffects {
         const requestArray = winners.map((winner) => {
           return this.garageHttpService.getCar(winner.id);
         });
+
         return forkJoin(requestArray).pipe(
           map((cars) => {
             const newWinners: WinnerInNecessaryFormat[] = winners.map((winner, index) => {
@@ -92,6 +98,34 @@ export class LoadWinnersEffects {
       switchMap(({ winner }) =>
         this.winnersHttpService.createWinner(winner).pipe(
           map(() => WinnersHttpActions.createWinnerSuccess()),
+          catchError((error: { message: string }) =>
+            of(WinnersHttpActions.loadFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  });
+
+  checkIsWinnerExistWinner$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(GarageHttpActions.deleteCarSuccess),
+      switchMap(({ id }) => {
+        return this.winnersHttpService.getWinner(id).pipe(
+          map(() => WinnersHttpActions.deleteWinner({ id })),
+          catchError((error: { message: string }) => {
+            return of(WinnersHttpActions.loadFailure({ error: error.message }));
+          })
+        );
+      })
+    );
+  });
+
+  deleteWinner$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(WinnersHttpActions.deleteWinner),
+      switchMap(({ id }) =>
+        this.winnersHttpService.deleteWinner(id).pipe(
+          map(() => WinnersHttpActions.deleteWinnerSuccess()),
           catchError((error: { message: string }) =>
             of(WinnersHttpActions.loadFailure({ error: error.message }))
           )
