@@ -2,11 +2,11 @@ import { Car } from '@app/shared/types/car';
 import { GarageActions } from '@garage/redux/actions/garage.actions';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { updateCurrentPage } from '@utils/functions/update-page';
 
 export interface State {
   currentPage: number;
   totalCount: number;
-  isLoading: boolean;
   cars: Car[];
   error: string | null;
 }
@@ -14,29 +14,25 @@ export interface State {
 export const initialState: State = {
   totalCount: 0,
   currentPage: 1,
-  isLoading: false,
   cars: [],
   error: null,
 };
 
 export const reducer = createReducer(
   initialState,
-  on(GarageHttpActions.loadCars, (state): State => ({ ...state, isLoading: true })),
-  on(
-    GarageHttpActions.loadCarsSuccess,
-    (state, { data }): State => ({
+  on(GarageHttpActions.loadCarsSuccess, (state, { data }): State => {
+    return {
       ...state,
-      isLoading: false,
       cars: data.cars,
       totalCount: data.totalCars,
-    })
-  ),
+      currentPage: updateCurrentPage(state.currentPage, data.totalCars),
+    };
+  }),
 
   on(
     GarageHttpActions.loadFailure,
     (state, { error }): State => ({
       ...state,
-      isLoading: false,
       error,
     })
   ),

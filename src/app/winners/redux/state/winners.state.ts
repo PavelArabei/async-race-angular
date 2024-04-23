@@ -1,5 +1,6 @@
 import { WinnerInNecessaryFormat } from '@app/shared/types/winner';
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { updateCurrentPage } from '@utils/functions/update-page';
 import { WinnersActions } from '@winners/redux/actions/winners.actions';
 import { WinnersHttpActions } from '@winners/redux/actions/winners-http.actions';
 
@@ -31,6 +32,7 @@ export const reducer = createReducer(
       ...state,
       winners: data.winners,
       totalCount: data.totalCount,
+      currentPage: updateCurrentPage(state.currentPage, data.totalCount),
     })
   ),
   on(WinnersActions.sortWinners, (state, { data }): State => {

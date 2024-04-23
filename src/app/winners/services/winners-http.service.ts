@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Winner, WinnerWithoutId } from '@app/shared/types/winner';
 import { Store } from '@ngrx/store';
 import { RouterRoutes } from '@utils/constants/router-routes';
+import { PAGE_SIZE } from '@utils/constants/variables';
 import { winnersFeature } from '@winners/redux/state/winners.state';
 import { switchMap } from 'rxjs';
 
@@ -11,7 +12,7 @@ import { switchMap } from 'rxjs';
 })
 export class WinnersHttpService {
   private readonly CURRENT_PATH = RouterRoutes.WINNERS;
-  private LIMIT_PER_PAGE = 7;
+  private LIMIT_PER_PAGE = PAGE_SIZE;
   private triggers = this.store.select(winnersFeature.selectTriggers);
   constructor(
     private http: HttpClient,
