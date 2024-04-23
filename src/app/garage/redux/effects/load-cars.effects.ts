@@ -95,7 +95,7 @@ export class LoadCarsEffects {
 
   handleUpdateCar$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(GarageHttpActions.updateCar),
+      ofType(GarageHttpActions.updateCar, GarageHttpActions.deleteCar),
       map(() => UpgradeCarActions.unselectUpgradedCar())
     );
   });

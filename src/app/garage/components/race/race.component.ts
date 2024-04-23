@@ -15,9 +15,9 @@ import { ButtonComponent } from '@core/components/button/button.component';
 import { RaceStateService } from '@garage/components/race/services/race-state/race-state.service';
 import { GarageHttpActions } from '@garage/redux/actions/garageHttpActions';
 import { UpgradeCarActions } from '@garage/redux/actions/upgrade-car.actions';
-import { UpdateCarService } from '@garage/services/update-car/update-car.service';
+import { carFeature } from '@garage/redux/state/update-car.state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-race',
@@ -30,12 +30,14 @@ import { Observable } from 'rxjs';
 })
 export class RaceComponent implements OnInit, AfterViewInit {
   @Input({ required: true }) car!: Car;
+  isSelected = this.store
+    .select(carFeature.selectSelectedCar)
+    .pipe(map((car) => !!(car && car.id === this.car.id)));
   isRaceStarted$!: Observable<boolean>;
   @ViewChild('car') carImage!: MatIcon;
 
   constructor(
     private readonly store: Store,
-    private readonly updateCarService: UpdateCarService,
     private readonly destroyRef: DestroyRef,
     private readonly raceStateService: RaceStateService
   ) {}

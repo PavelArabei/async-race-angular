@@ -1,7 +1,7 @@
-<div class="start">
+<div [class.chosen-bg]="isSelected | async" class="start">
   <div class="controls">
     <div class="controls__car">
-      <app-button (click)="selectCar()">SELECT</app-button>
+      <app-button (click)="selectCar()" [class.chosen]="isSelected | async">SELECT</app-button>
       <app-button (click)="removeCar()">REMOVE</app-button>
     </div>
     <div class="controls__race">

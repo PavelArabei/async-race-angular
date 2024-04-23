@@ -10,6 +10,7 @@ $car-size: 60px;
   display: flex;
   position: relative;
   align-items: center;
+  color: $text;
 
   &__line {
   }
@@ -63,4 +64,11 @@ $car-size: 60px;
     display: flex;
     gap: 0.25rem;
   }
+}
+
+.chosen {
+  color: $accent;
+}
+.chosen-bg {
+  background-color: $background;
 }
