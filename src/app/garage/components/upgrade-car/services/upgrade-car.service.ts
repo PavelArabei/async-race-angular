@@ -66,10 +66,7 @@ export class UpgradeCarService {
     const selectedCar$ = this.store.select(carFeature.selectSelectedCar);
     selectedCar$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((car) => {
       if (car) {
-        name.setValue(car.name);
-        color.setValue(car.color);
         this.car = car;
-
         name.enable();
         color.enable();
       } else {
@@ -77,6 +74,8 @@ export class UpgradeCarService {
         name.disable();
         color.disable();
       }
+      name.setValue(car?.name || '');
+      color.setValue(car?.color || '#000000');
 
       cdr.markForCheck();
     });
