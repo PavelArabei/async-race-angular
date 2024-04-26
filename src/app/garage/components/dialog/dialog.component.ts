@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   MAT_DIALOG_DATA,
@@ -15,6 +15,7 @@ import { timer } from 'rxjs';
   imports: [MatDialogContent, MatDialogTitle],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent {
   constructor(

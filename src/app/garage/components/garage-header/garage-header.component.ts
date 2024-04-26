@@ -16,15 +16,15 @@ import { Store } from '@ngrx/store';
 export class GarageHeaderComponent {
   private store = inject(Store);
   private bigRaceService = inject(BigRaceService);
-  generateCars() {
+  generateCars(): void {
     this.store.dispatch(GarageHttpActions.add100Cars());
   }
 
-  startBigRace() {
+  startBigRace(): void {
     this.bigRaceService.startBigRace();
   }
 
-  resetBigRace() {
+  resetBigRace(): void {
     this.bigRaceService.resetRace();
   }
 }

@@ -12,13 +12,13 @@ export class IconRegisterService {
     private readonly sanitizer: DomSanitizer
   ) {}
 
-  public registerIcons() {
+  public registerIcons(): void {
     icons.forEach(({ iconName, icon }) => {
       this.add(iconName, icon);
     });
   }
 
-  private add(name: string, source: string) {
+  private add(name: string, source: string): void {
     this.iconRegistry.addSvgIconLiteral(name, this.sanitizer.bypassSecurityTrustHtml(source));
   }
 }

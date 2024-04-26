@@ -33,7 +33,6 @@ export class RaceStateService {
     return this.isRaceStarted.asObservable();
   }
 
-  //
   addCarAndId(carHTML: HTMLElement, car: Car) {
     this.carHTML = carHTML;
     this.car = car;
@@ -68,7 +67,8 @@ export class RaceStateService {
     const raceHttpSubscription = this.raceHttpService
       .stopEngine(id)
       .pipe(catchError((error: HttpErrorResponse) => of(error)))
-      .subscribe(() => {
+      .subscribe((e) => {
+        console.log(e);
         this.isRaceStarted.next(false);
         this.animationState.id = 0;
         this.time = 0;

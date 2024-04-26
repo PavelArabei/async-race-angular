@@ -26,12 +26,14 @@ import { Observable } from 'rxjs';
 })
 export class RacesListComponent implements AfterViewChecked {
   @ViewChild('road') road!: ElementRef<HTMLDivElement>;
+
   private resizeEmitter = inject(ResizeEmitterService);
   private store = inject(Store);
+
   cars$: Observable<Car[]> = this.store.select(garageFeature.selectCars);
 
   @HostListener('window:resize')
-  onResize() {
+  onResize(): void {
     this.changeRoadSize();
   }
 
@@ -39,7 +41,7 @@ export class RacesListComponent implements AfterViewChecked {
     this.changeRoadSize();
   }
 
-  private changeRoadSize() {
+  private changeRoadSize(): void {
     const roadSize = this.road.nativeElement.offsetWidth;
     this.resizeEmitter.changeRoadSize(roadSize);
   }

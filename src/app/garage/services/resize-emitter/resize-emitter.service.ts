@@ -9,7 +9,7 @@ export class ResizeEmitterService {
   get carDistance(): Observable<number> {
     return this.carDistance$.asObservable();
   }
-  changeRoadSize(size: number) {
+  changeRoadSize(size: number): void {
     if (size === this.carDistance$.value) return;
     this.carDistance$.next(size);
   }

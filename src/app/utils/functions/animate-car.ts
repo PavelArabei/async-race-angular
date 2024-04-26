@@ -2,7 +2,11 @@ export type AnimationState = {
   id?: number;
 };
 
-export const carAnimation = (car: HTMLElement, distance: number, animationTime: number) => {
+export const carAnimation = (
+  car: HTMLElement,
+  distance: number,
+  animationTime: number
+): AnimationState => {
   const animatedCar = car;
   let start: number | null = null;
   const state: AnimationState = {};

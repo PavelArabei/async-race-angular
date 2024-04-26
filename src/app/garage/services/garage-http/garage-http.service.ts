@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Car, CarWithoutId } from '@app/shared/types/car';
 import { garageFeature } from '@garage/redux/state/garage.state';
@@ -20,7 +20,7 @@ export class GarageHttpService {
     private store: Store
   ) {}
 
-  getCars() {
+  getCars(): Observable<HttpResponse<Car[]>> {
     return this.getCurrentPage().pipe(
       switchMap((page) => {
         return this.http.get<Car[]>(`/${this.CURRENT_PATH}`, {
@@ -31,23 +31,23 @@ export class GarageHttpService {
     );
   }
 
-  updateCar(car: Car) {
+  updateCar(car: Car): Observable<Car> {
     return this.http.put<Car>(`/${this.CURRENT_PATH}/${car.id}`, car);
   }
 
-  addCar(car: CarWithoutId) {
+  addCar(car: CarWithoutId): Observable<Car> {
     return this.http.post<Car>(`/${this.CURRENT_PATH}`, car);
   }
 
-  deleteCar(id: number) {
+  deleteCar(id: number): Observable<Car> {
     return this.http.delete<Car>(`/${this.CURRENT_PATH}/${id}`);
   }
 
-  getCar(id: number) {
+  getCar(id: number): Observable<Car> {
     return this.http.get<Car>(`/${this.CURRENT_PATH}/${id}`);
   }
 
-  addHundredCars() {
+  addHundredCars(): Observable<Car[]> {
     const requests = Array.from({ length: 100 }, () => {
       const firsName = carsFirsName[Math.floor(Math.random() * carsFirsName.length)];
       const secondName = carsSecondName[Math.floor(Math.random() * carsSecondName.length)];
