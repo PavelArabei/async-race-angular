@@ -3,11 +3,11 @@
     <input
       [class.dirty]="nameControl.value.length > 0"
       [formControl]="nameControl"
+      [id]="upgradeType"
       class="form__name"
-      id="car-name"
       type="text"
     />
-    <label class="form__label" for="car-name">Car name</label>
+    <label [for]="upgradeType" class="form__label">Car name</label>
   </div>
   <input [formControl]="colorControl" class="form__color" type="color" />
   <app-button [disabled]="isDisabled" class="form__button" type="submit">

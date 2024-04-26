@@ -16,25 +16,24 @@ $input-padding: 0.5rem;
   }
 
   &__name {
+    position: relative;
     height: 28px;
     color: $text;
     border-radius: 0.2rem;
     padding-left: $input-padding;
-    //flex-grow: 1;
     background-color: $background-light;
     font-size: 1.2rem;
 
-    &:focus {
+    &:focus,
+    &:disabled {
       ~ .form__label {
         opacity: 0;
+        z-index: -1;
       }
     }
 
     &:disabled {
       background-color: $background;
-      ~ .form__label {
-        opacity: 0.5;
-      }
     }
   }
 
@@ -45,6 +44,7 @@ $input-padding: 0.5rem;
     position: absolute;
     opacity: 1;
     transition: 0.2s;
+    cursor: initial;
   }
 
   &__color {
