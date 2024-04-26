@@ -1,5 +1,9 @@
-<app-header></app-header>
-<main class="main">
+@if (isCorrectRoute) {
+  <app-header></app-header>
+}
+<main [@routeAnimations]="getRouteAnimationData()" class="main">
   <router-outlet />
 </main>
-<app-footer></app-footer>
+@if (isCorrectRoute) {
+  <app-footer></app-footer>
+}

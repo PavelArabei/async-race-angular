@@ -10,7 +10,5 @@ import { MatIcon } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  @Input() svgName: string | null = null;
-  @Input() svgColor: string | null = null;
   @Input() disabled = false;
 }

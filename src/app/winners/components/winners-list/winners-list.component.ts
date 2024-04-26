@@ -46,7 +46,7 @@ export class WinnersListComponent {
   private store = inject(Store);
   winners$: Observable<WinnerInNecessaryFormat[]> = this.store.select(winnersFeature.selectWinners);
 
-  sort(sortType: WinnersSort) {
+  sort(sortType: WinnersSort): void {
     this.store.dispatch(WinnersActions.sortWinners({ data: sortType }));
   }
 }

@@ -5,7 +5,7 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { CAR_PAGE_SIZE } from '@utils/constants/variables';
 import { updateCurrentPage } from '@utils/functions/update-page';
 
-export interface State {
+interface State {
   currentPage: number;
   totalCount: number;
   cars: Car[];

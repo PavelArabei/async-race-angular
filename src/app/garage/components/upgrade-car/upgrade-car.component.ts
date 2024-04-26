@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from '@core/components/button/button.component';
 import {
   CarForm,
@@ -33,15 +33,15 @@ export class UpgradeCarComponent implements OnInit {
     private upgradeCarService: UpgradeCarService
   ) {}
 
-  get nameControl() {
+  get nameControl(): FormControl<string> {
     return this.form.controls.name;
   }
 
-  get colorControl() {
+  get colorControl(): FormControl<string> {
     return this.form.controls.color;
   }
 
-  get isDisabled() {
+  get isDisabled(): boolean {
     return this.form.controls.name.disabled;
   }
 
@@ -49,7 +49,7 @@ export class UpgradeCarComponent implements OnInit {
     this.form = this.upgradeCarService.initForm(this.upgradeType, this.cdr);
   }
 
-  submit() {
+  submit(): void {
     this.upgradeCarService.submit();
   }
 }

@@ -19,7 +19,7 @@ export class PaginatorComponent {
   pageSize = CAR_PAGE_SIZE;
   constructor(private store: Store) {}
 
-  changePage(event: PageEvent) {
+  changePage(event: PageEvent): void {
     const newPage = event.pageIndex + 1;
     this.store.dispatch(GarageActions.nextPageGarageActions({ data: newPage }));
   }

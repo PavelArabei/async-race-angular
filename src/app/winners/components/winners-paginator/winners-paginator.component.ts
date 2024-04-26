@@ -17,8 +17,10 @@ import { winnersFeature } from '@winners/redux/state/winners.state';
 export class WinnersPaginatorComponent {
   winnersLengthAndPage$ = this.store.select(winnersFeature.selectPageAndTotalCount);
   pageSize = WINNERS_PAGE_SIZE;
+
   constructor(private store: Store) {}
-  changePage($event: PageEvent) {
+
+  changePage($event: PageEvent): void {
     const newPage = $event.pageIndex + 1;
     this.store.dispatch(WinnersActions.nextPage({ data: newPage }));
   }

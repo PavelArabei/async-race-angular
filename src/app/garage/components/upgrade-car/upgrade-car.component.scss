@@ -1,4 +1,6 @@
 @import 'colors';
+
+$input-padding: 0.5rem;
 :host {
   width: 100%;
 }
@@ -8,9 +10,41 @@
   align-items: center;
   width: 100%;
 
-  &__name {
-    border-radius: 1rem;
+  &__group {
+    position: relative;
     flex-grow: 1;
+  }
+
+  &__name {
+    position: relative;
+    height: 28px;
+    color: $text;
+    border-radius: 0.2rem;
+    padding-left: $input-padding;
+    background-color: $background-light;
+    font-size: 1.2rem;
+
+    &:focus,
+    &:disabled {
+      ~ .form__label {
+        opacity: 0;
+        z-index: -1;
+      }
+    }
+
+    &:disabled {
+      background-color: $background;
+    }
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    top: 0;
+    left: $input-padding;
+    position: absolute;
+    opacity: 1;
+    transition: 0.2s;
+    cursor: initial;
   }
 
   &__color {
@@ -23,6 +57,21 @@
     height: 35px;
     width: 150px;
   }
-  &__button {
+}
+
+.dirty {
+  ~ .form__label {
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .form__name {
+    min-width: 600px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .form__name {
+    min-width: 300px;
   }
 }

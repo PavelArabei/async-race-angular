@@ -1,7 +1,8 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter } from '@angular/router';
+import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router';
+import { LoadInfoEffects } from '@app/redux/effects/load-info.effects';
 import { mainUrlInterceptor } from '@core/interceptors/main-url.interceptor';
 import { LoadCarsEffects } from '@garage/redux/effects/load-cars.effects';
 import { garageFeature } from '@garage/redux/state/garage.state';
@@ -16,14 +17,14 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes, withPreloading(PreloadAllModules)),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([mainUrlInterceptor])),
     provideStore(),
     provideState(garageFeature),
     provideState(winnersFeature),
     provideState(carFeature),
-    provideEffects(LoadCarsEffects, LoadWinnersEffects),
+    provideEffects(LoadCarsEffects, LoadWinnersEffects, LoadInfoEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };

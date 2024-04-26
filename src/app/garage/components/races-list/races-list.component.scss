@@ -9,6 +9,7 @@ $item-height: 80px;
 }
 
 .race {
+  background-color: $background-dark;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -25,7 +26,6 @@ $item-height: 80px;
   &__name {
     flex-grow: 1;
     text-align: center;
-    //margin-left: 1rem;
   }
 }
 

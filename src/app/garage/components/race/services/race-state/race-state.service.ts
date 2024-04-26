@@ -5,7 +5,6 @@ import { Car } from '@app/shared/types/car';
 import { BigRaceService } from '@garage/services/big-race/big-race.service';
 import { RaceHttpService } from '@garage/services/race-http/race-http.service';
 import { ResizeEmitterService } from '@garage/services/resize-emitter/resize-emitter.service';
-import { Store } from '@ngrx/store';
 import { AnimationState, carAnimation } from '@utils/functions/animate-car';
 import { BehaviorSubject, catchError, of } from 'rxjs';
 
@@ -25,8 +24,7 @@ export class RaceStateService {
   constructor(
     private raceHttpService: RaceHttpService,
     private resizeEmitter: ResizeEmitterService,
-    private bigRaceService: BigRaceService,
-    private store: Store
+    private bigRaceService: BigRaceService
   ) {
     this.subscribeToBigRaceService();
   }
@@ -35,7 +33,6 @@ export class RaceStateService {
     return this.isRaceStarted.asObservable();
   }
 
-  //
   addCarAndId(carHTML: HTMLElement, car: Car) {
     this.carHTML = carHTML;
     this.car = car;

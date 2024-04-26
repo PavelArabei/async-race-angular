@@ -27,12 +27,12 @@ export class BigRaceService {
   ) {
     this.subscribeToTotalRaceCount();
   }
-  startBigRace() {
+  startBigRace(): void {
     this.isBigRaceStarted.next(true);
     this.isWinnerSelected = false;
   }
 
-  stopBigRace() {
+  stopBigRace(): void {
     this.racesResultCount += 1;
     if (this.racesResultCount === this.totalRaceCount) {
       this.isBigRaceStarted.next(false);
@@ -41,12 +41,12 @@ export class BigRaceService {
     }
   }
 
-  resetRace() {
+  resetRace(): void {
     this.racesResultCount = 0;
     this.isWinnerSelected = false;
     this.resetBigRace.next(true);
   }
-  addWinner({ id, name }: Car, time: number) {
+  addWinner({ id, name }: Car, time: number): void {
     if (this.isWinnerSelected) return;
     const transformedTime = Number((time / 1000).toFixed(2));
     const winner: WinnerWithoutWins = { id, time: transformedTime };
@@ -55,13 +55,13 @@ export class BigRaceService {
     this.openDialog({ name, time: transformedTime });
   }
 
-  private subscribeToTotalRaceCount() {
+  private subscribeToTotalRaceCount(): void {
     this.totalRaceCount$.subscribe((raceCount) => {
       this.totalRaceCount = raceCount;
     });
   }
 
-  private openDialog(winner: NewWinner) {
+  private openDialog(winner: NewWinner): void {
     this.dialog.open(DialogComponent, { data: winner, width: '400px' });
   }
 }

@@ -30,10 +30,11 @@ import { map, Observable } from 'rxjs';
 })
 export class RaceComponent implements OnInit, AfterViewInit {
   @Input({ required: true }) car!: Car;
-  isSelected = this.store
+  isSelected: Observable<boolean> = this.store
     .select(carFeature.selectSelectedCar)
-    .pipe(map((car) => !!(car && car.id === this.car.id)));
+    .pipe(map((car: Car | null) => !!(car && car.id === this.car.id)));
   isRaceStarted$!: Observable<boolean>;
+
   @ViewChild('car') carImage!: MatIcon;
 
   constructor(
@@ -50,27 +51,27 @@ export class RaceComponent implements OnInit, AfterViewInit {
     this.addRequiredParamsToRaceState();
   }
 
-  getCarColor() {
+  getCarColor(): string {
     return this.car.color;
   }
 
-  startRace() {
+  startRace(): void {
     this.raceStateService.startRace(this.car.id);
   }
 
-  addCarToGarage() {
+  addCarToGarage(): void {
     this.raceStateService.stopRace(this.car.id);
   }
 
-  removeCar() {
+  removeCar(): void {
     this.store.dispatch(GarageHttpActions.deleteCar({ id: this.car.id }));
   }
 
-  selectCar() {
+  selectCar(): void {
     this.store.dispatch(UpgradeCarActions.selectUpgradedCar({ car: this.car }));
   }
 
-  private addRequiredParamsToRaceState() {
+  private addRequiredParamsToRaceState(): void {
     this.raceStateService.addCarAndId(this.carImage._elementRef.nativeElement, this.car);
     this.raceStateService.addDestroyRef(this.destroyRef);
     this.raceStateService.addDistance();

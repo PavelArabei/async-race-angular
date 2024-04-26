@@ -1,0 +1,25 @@
+@import 'colors';
+@import 'mixins';
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+}
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__icon {
+    @include icon-size(300px);
+    color: $accent;
+  }
+
+  &__text {
+    font-size: 72px;
+    color: $accent;
+  }
+}
