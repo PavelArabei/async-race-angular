@@ -67,8 +67,7 @@ export class RaceStateService {
     const raceHttpSubscription = this.raceHttpService
       .stopEngine(id)
       .pipe(catchError((error: HttpErrorResponse) => of(error)))
-      .subscribe((e) => {
-        console.log(e);
+      .subscribe(() => {
         this.isRaceStarted.next(false);
         this.animationState.id = 0;
         this.time = 0;
