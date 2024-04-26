@@ -8,6 +8,7 @@ export const routes: Routes = [
       import('./garage/components/garage/garage.component').then(
         (component) => component.GarageComponent
       ),
+    data: { animation: RouterRoutes.GARAGE },
   },
   {
     path: RouterRoutes.WINNERS,
@@ -15,6 +16,7 @@ export const routes: Routes = [
       import('./winners/components/winners/winners.component').then(
         (component) => component.WinnersComponent
       ),
+    data: { animation: RouterRoutes.WINNERS },
   },
   { path: '', redirectTo: RouterRoutes.GARAGE, pathMatch: 'full' }, // redirect to `first-component`
   {
@@ -23,5 +25,6 @@ export const routes: Routes = [
       import('./core/components/page-not-found/page-not-found.component').then(
         (component) => component.PageNotFoundComponent
       ),
+    data: { animation: '**' },
   },
 ];

@@ -9,6 +9,13 @@ html,
 body {
   height: 100%;
 }
+
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-color: $accent $background-light;
+  scrollbar-width: thin;
+}
 body {
   margin: 0;
   font-family: 'Comic Neue', cursive;
@@ -23,12 +30,6 @@ body {
 .mat-mdc-paginator {
   background-color: $background-dark !important;
 }
-
-//first container
-
-// input container {
-
-//\
 
 .mat-mdc-form-field-subscript-wrapper {
   display: none;
