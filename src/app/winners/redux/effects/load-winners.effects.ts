@@ -138,6 +138,17 @@ export class LoadWinnersEffects {
     );
   });
 
+  updateState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(
+        WinnersHttpActions.deleteWinnerSuccess,
+        WinnersHttpActions.createWinnerSuccess,
+        WinnersHttpActions.updateWinnerSuccess
+      ),
+      map(() => WinnersHttpActions.loadWinners())
+    );
+  });
+
   constructor(
     private winnersHttpService: WinnersHttpService,
     private garageHttpService: GarageHttpService,
