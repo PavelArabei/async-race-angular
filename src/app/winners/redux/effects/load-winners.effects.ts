@@ -5,7 +5,7 @@ import { GarageHttpService } from '@garage/services/garage-http/garage-http.serv
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { WinnersActions } from '@winners/redux/actions/winners.actions';
 import { WinnersHttpActions } from '@winners/redux/actions/winners-http.actions';
-import { WinnersHttpService } from '@winners/services/winners-http.service';
+import { WinnersHttpService } from '@winners/services/winners-http/winners-http.service';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 
 @Injectable()
