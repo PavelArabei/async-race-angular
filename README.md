@@ -1,4 +1,6 @@
 # UI Deployment: [deploy-link](https://main--epam-async-race-task.netlify.app/)
+## To start check you should copy this [repo](https://github.com/mikhama/async-race-api) and run server
+## Application type: Angular 17
 # Score: 370
 
 ## 🏁 Basic Structure (85 points)
