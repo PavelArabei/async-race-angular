@@ -18,7 +18,7 @@ export class RaceStateService {
   private destroyRef!: DestroyRef;
   private distance = 0;
   private animationState: AnimationState = { id: 0 };
-  private isBigRace: boolean = false;
+  private isBigRace = false;
   private time = 0;
 
   constructor(
@@ -87,8 +87,9 @@ export class RaceStateService {
           this.bigRaceService.addWinner(this.car, this.time);
         }
         this.bigRaceService.stopBigRace();
-        raceHttpSubscription.unsubscribe();
       });
+
+    this.bigRaceService.addHttpSubscription(raceHttpSubscription);
   }
 
   private subscribeToBigRaceService() {

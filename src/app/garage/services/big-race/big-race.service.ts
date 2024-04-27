@@ -6,7 +6,7 @@ import { DialogComponent } from '@garage/components/dialog/dialog.component';
 import { garageFeature } from '@garage/redux/state/garage.state';
 import { Store } from '@ngrx/store';
 import { WinnersActions } from '@winners/redux/actions/winners.actions';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,7 @@ export class BigRaceService {
   private isWinnerSelected = false;
   private isBigRaceStarted = new BehaviorSubject<boolean>(false);
   isBigRaceStarted$ = this.isBigRaceStarted.asObservable();
+  private httpSubscriptions: Subscription[] = [];
 
   constructor(
     private store: Store,
@@ -28,31 +29,51 @@ export class BigRaceService {
     this.subscribeToTotalRaceCount();
   }
   startBigRace(): void {
+    this.clearSubscriptions();
     this.isBigRaceStarted.next(true);
     this.isWinnerSelected = false;
   }
 
   stopBigRace(): void {
+    if (!this.isBigRaceStarted.value) return;
     this.racesResultCount += 1;
     if (this.racesResultCount === this.totalRaceCount) {
-      this.isBigRaceStarted.next(false);
-      this.racesResultCount = 0;
-      this.isWinnerSelected = false;
+      this.clearSubscriptions();
+      this.setStateToStop();
     }
   }
 
   resetRace(): void {
-    this.racesResultCount = 0;
-    this.isWinnerSelected = false;
+    this.setStateToStop();
     this.resetBigRace.next(true);
   }
+
   addWinner({ id, name }: Car, time: number): void {
     if (this.isWinnerSelected) return;
+
     const transformedTime = Number((time / 1000).toFixed(2));
     const winner: WinnerWithoutWins = { id, time: transformedTime };
     this.store.dispatch(WinnersActions.addWinner({ winner }));
+
+    this.isBigRaceStarted.next(false);
     this.isWinnerSelected = true;
+
     this.openDialog({ name, time: transformedTime });
+  }
+
+  addHttpSubscription(subscription: Subscription): void {
+    this.httpSubscriptions.push(subscription);
+  }
+
+  private setStateToStop(): void {
+    this.isBigRaceStarted.next(false);
+    this.racesResultCount = 0;
+    this.isWinnerSelected = false;
+  }
+
+  private clearSubscriptions(): void {
+    this.httpSubscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.httpSubscriptions = [];
   }
 
   private subscribeToTotalRaceCount(): void {
