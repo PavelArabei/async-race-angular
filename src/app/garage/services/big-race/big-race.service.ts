@@ -14,13 +14,17 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 export class BigRaceService {
   private racesResultCount = 0;
   private totalRaceCount = 0;
-  private totalRaceCount$ = this.store.select(garageFeature.selectCarsInRace);
+
   private resetBigRace = new Subject<boolean>();
   resetBigRace$ = this.resetBigRace.asObservable();
+
   private isWinnerSelected = false;
+
   private isBigRaceStarted = new BehaviorSubject<boolean>(false);
   isBigRaceStarted$ = this.isBigRaceStarted.asObservable();
+
   private httpSubscriptions: Subscription[] = [];
+  private totalRaceCount$ = this.store.select(garageFeature.selectCarsInRace);
 
   constructor(
     private store: Store,
@@ -30,8 +34,7 @@ export class BigRaceService {
   }
   startBigRace(): void {
     this.clearSubscriptions();
-    this.isBigRaceStarted.next(true);
-    this.isWinnerSelected = false;
+    this.setStateToDefault();
   }
 
   stopBigRace(): void {
@@ -39,12 +42,12 @@ export class BigRaceService {
     this.racesResultCount += 1;
     if (this.racesResultCount === this.totalRaceCount) {
       this.clearSubscriptions();
-      this.setStateToStop();
+      this.setStateToDefault();
     }
   }
 
   resetRace(): void {
-    this.setStateToStop();
+    this.setStateToDefault();
     this.resetBigRace.next(true);
   }
 
@@ -65,7 +68,7 @@ export class BigRaceService {
     this.httpSubscriptions.push(subscription);
   }
 
-  private setStateToStop(): void {
+  private setStateToDefault(): void {
     this.isBigRaceStarted.next(false);
     this.racesResultCount = 0;
     this.isWinnerSelected = false;
