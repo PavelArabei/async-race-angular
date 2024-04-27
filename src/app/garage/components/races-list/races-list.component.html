@@ -1,4 +1,4 @@
-<div class="race-container">
+<section class="race-container">
   @if (cars$ | async; as cars) {
     <ul class="race race-start">
       @for (car of cars; track car.id) {
@@ -40,4 +40,4 @@
       </ul>
     </div>
   }
-</div>
+</section>

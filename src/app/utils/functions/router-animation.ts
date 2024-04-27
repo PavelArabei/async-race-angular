@@ -18,10 +18,10 @@ function slideTo() {
       ],
       optional
     ),
-    query(':enter', [style({ transform: 'rotateY(-90deg)' })]),
+    query(':enter', [style({ transform: 'rotateY(-90deg)' })], optional),
     group([
       query(':leave', [animate('0ms ease', style({ left: '130%' }))], optional),
-      query(':enter', [animate('500ms ease', style({ transform: 'rotateY(0deg)' }))]),
+      query(':enter', [animate('500ms ease', style({ transform: 'rotateY(0deg)' }))], optional),
     ]),
   ];
 }
